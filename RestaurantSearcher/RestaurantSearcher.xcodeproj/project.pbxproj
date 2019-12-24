@@ -13,6 +13,7 @@
 		0E79F48E23B0C11100C7C171 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E79F48C23B0C11100C7C171 /* Main.storyboard */; };
 		0E79F49023B0C11400C7C171 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E79F48F23B0C11400C7C171 /* Assets.xcassets */; };
 		0E79F49323B0C11400C7C171 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E79F49123B0C11400C7C171 /* LaunchScreen.storyboard */; };
+		0E79F49B23B1EF5E00C7C171 /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79F49A23B1EF5E00C7C171 /* LocationSearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		0E79F48F23B0C11400C7C171 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E79F49223B0C11400C7C171 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E79F49423B0C11400C7C171 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E79F49A23B1EF5E00C7C171 /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				0E79F48623B0C11100C7C171 /* AppDelegate.swift */,
 				0E79F48823B0C11100C7C171 /* SceneDelegate.swift */,
 				0E79F48A23B0C11100C7C171 /* ViewController.swift */,
+				0E79F49A23B1EF5E00C7C171 /* LocationSearchViewController.swift */,
 				0E79F48C23B0C11100C7C171 /* Main.storyboard */,
 				0E79F48F23B0C11400C7C171 /* Assets.xcassets */,
 				0E79F49123B0C11400C7C171 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				0E79F48B23B0C11100C7C171 /* ViewController.swift in Sources */,
 				0E79F48723B0C11100C7C171 /* AppDelegate.swift in Sources */,
 				0E79F48923B0C11100C7C171 /* SceneDelegate.swift in Sources */,
+				0E79F49B23B1EF5E00C7C171 /* LocationSearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
+    // 現在地から検索する画面に遷移
+    @IBAction func locationSearchButton(_ sender: Any) {
+        performSegue(withIdentifier: "locationSearch", sender: nil)
+    }
+    
 
 }
 
