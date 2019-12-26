@@ -142,6 +142,10 @@
                         <viewLayoutGuide key="safeArea" id="Utx-9B-vOm"/>
                     </view>
                     <navigationItem key="navigationItem" id="nmu-Gi-QxO"/>
+                    <connections>
+                        <outlet property="rangeTextField" destination="ZXS-eY-9Ov" id="HG8-Nu-sao"/>
+                        <outlet property="storeTableView" destination="hp2-fY-yrT" id="qCy-LF-x35"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DGz-aH-d1Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
