@@ -51,16 +51,17 @@
             </objects>
             <point key="canvasLocation" x="2112" y="663"/>
         </scene>
-        <!--View Controller-->
+        <!--Details View Controller-->
         <scene sceneID="IoD-Qg-NVc">
             <objects>
-                <viewController id="Lw5-f2-ZxC" sceneMemberID="viewController">
+                <viewController id="Lw5-f2-ZxC" customClass="DetailsViewController" customModule="RestaurantSearcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qgu-vU-22s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="9zr-Ur-qNw"/>
                     </view>
+                    <navigationItem key="navigationItem" id="YV0-HZ-WKk"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hgd-Hx-YHb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -74,7 +75,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AcM-S8-pBK">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AcM-S8-pBK">
                                 <rect key="frame" x="0.0" y="88" width="414" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="検索範囲:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqb-tl-RYz">
@@ -91,15 +92,14 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOr-rL-8sQ">
                                         <rect key="frame" x="276" y="0.0" width="138" height="34"/>
                                         <state key="normal" title="再検索"/>
+                                        <connections>
+                                            <action selector="searchButtonAction:" destination="5cw-i3-qfO" eventType="touchUpInside" id="Scc-7k-bQC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="JOr-rL-8sQ" firstAttribute="width" secondItem="xqb-tl-RYz" secondAttribute="width" id="2Dz-Wr-uxS"/>
-                                    <constraint firstItem="ZXS-eY-9Ov" firstAttribute="width" secondItem="xqb-tl-RYz" secondAttribute="width" id="D91-Ey-8WV"/>
-                                </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hp2-fY-yrT">
-                                <rect key="frame" x="0.0" y="122" width="414" height="740"/>
+                                <rect key="frame" x="0.0" y="130" width="414" height="672"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="storeCell" textLabel="e02-EQ-076" detailTextLabel="TVl-4h-Wsk" style="IBUITableViewCellStyleSubtitle" id="Oog-e1-jXh">
@@ -128,23 +128,59 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="STe-lR-BgE">
+                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ShH-CM-eRt">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
+                                        <state key="normal" title="前のページ"/>
+                                        <connections>
+                                            <action selector="backPageButtonAction:" destination="5cw-i3-qfO" eventType="touchUpInside" id="TYN-MH-ZHR"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通信中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3g-Pb-ZR8">
+                                        <rect key="frame" x="138" y="0.0" width="138" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAB-8Q-ylj">
+                                        <rect key="frame" x="276" y="0.0" width="138" height="60"/>
+                                        <state key="normal" title="次のページ"/>
+                                        <connections>
+                                            <action selector="nextPageButtonAction:" destination="5cw-i3-qfO" eventType="touchUpInside" id="JWQ-12-DvK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Nbv-8h-rEh"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="AcM-S8-pBK" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="0Ke-eP-aXd"/>
-                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="hp2-fY-yrT" secondAttribute="trailing" id="6K1-jo-pFC"/>
-                            <constraint firstItem="AcM-S8-pBK" firstAttribute="top" secondItem="Utx-9B-vOm" secondAttribute="top" id="B6a-KC-J2L"/>
-                            <constraint firstItem="hp2-fY-yrT" firstAttribute="top" secondItem="AcM-S8-pBK" secondAttribute="bottom" id="Ptl-9a-j28"/>
-                            <constraint firstItem="Utx-9B-vOm" firstAttribute="bottom" secondItem="hp2-fY-yrT" secondAttribute="bottom" id="jmK-L9-E3z"/>
-                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="AcM-S8-pBK" secondAttribute="trailing" id="sAA-Xa-5TR"/>
-                            <constraint firstItem="hp2-fY-yrT" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="vmo-LU-EVM"/>
+                            <constraint firstItem="AcM-S8-pBK" firstAttribute="top" secondItem="Utx-9B-vOm" secondAttribute="top" id="BSG-Bz-eaf"/>
+                            <constraint firstItem="AcM-S8-pBK" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="LBS-qa-SE8"/>
+                            <constraint firstItem="STe-lR-BgE" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="M07-Tf-kjz"/>
+                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="STe-lR-BgE" secondAttribute="trailing" id="hQn-Kg-aNo"/>
+                            <constraint firstItem="hp2-fY-yrT" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="ixW-I6-uY4"/>
+                            <constraint firstItem="STe-lR-BgE" firstAttribute="top" secondItem="hp2-fY-yrT" secondAttribute="bottom" id="jGd-pN-yhq"/>
+                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="hp2-fY-yrT" secondAttribute="trailing" id="mhh-cS-q6X"/>
+                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="AcM-S8-pBK" secondAttribute="trailing" id="s0d-0q-bJZ"/>
+                            <constraint firstItem="Utx-9B-vOm" firstAttribute="bottom" secondItem="STe-lR-BgE" secondAttribute="bottom" id="vcg-xL-jya"/>
+                            <constraint firstItem="hp2-fY-yrT" firstAttribute="top" secondItem="AcM-S8-pBK" secondAttribute="bottom" constant="8" symbolic="YES" id="xfn-W3-cnt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Utx-9B-vOm"/>
                     </view>
                     <navigationItem key="navigationItem" id="nmu-Gi-QxO"/>
                     <connections>
+                        <outlet property="backPageButton" destination="ShH-CM-eRt" id="jcB-C6-E6m"/>
+                        <outlet property="nextPageButton" destination="aAB-8Q-ylj" id="gDF-HH-QeC"/>
+                        <outlet property="pageLabel" destination="p3g-Pb-ZR8" id="lqb-Fp-TOk"/>
                         <outlet property="rangeTextField" destination="ZXS-eY-9Ov" id="HG8-Nu-sao"/>
+                        <outlet property="searchButton" destination="JOr-rL-8sQ" id="0tU-z7-Z6V"/>
                         <outlet property="storeTableView" destination="hp2-fY-yrT" id="qCy-LF-x35"/>
+                        <segue destination="Lw5-f2-ZxC" kind="show" identifier="detailsFromLocation" id="9zo-n4-GdT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DGz-aH-d1Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
