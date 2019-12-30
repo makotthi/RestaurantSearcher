@@ -97,7 +97,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         
         // textFieldのinputViewにpickeViewを設定
         rangeTextField.inputView = rangePickerView
-        // 決定バーの生成
+        // ツールバーの生成
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -251,7 +251,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         
         if let latitude = latitude, let longitude = longitude {
             // リクエストURLの組み立て
-            guard let requestURL = URL(string: "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=6cf2ac2af697b3358620582d34884f09&latitude=\(latitude)&longitude=\(longitude)&range=\(range)&hit_per_page=9&offset_page=\(currentPage)") else {
+            guard let requestURL = URL(string: "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=6cf2ac2af697b3358620582d34884f09&latitude=\(latitude)&longitude=\(longitude)&range=\(range)&hit_per_page=100&offset_page=\(currentPage)") else {
                 return
             }
             print(requestURL)
@@ -285,7 +285,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
                     self.storeTableView.reloadData()
                     // pageLabelを更新
                     if let total = json.total_hit_count {
-                        self.totalPage = Int(ceil(Double(total) / 9.0))
+                        self.totalPage = Int(ceil(Double(total) / 100.0))
                         self.pageLabel.text = "\(self.currentPage) /\(self.totalPage) ページ"
                         if self.currentPage != 1 {
                             self.backPageButton.isEnabled = true

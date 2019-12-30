@@ -16,11 +16,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibm-k9-3rx">
-                                <rect key="frame" x="153" y="521" width="108" height="30"/>
+                                <rect key="frame" x="153" y="460" width="108" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="現在地から検索"/>
                                 <connections>
                                     <action selector="locationSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JM4-Vt-GWJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qU1-o2-lyd">
+                                <rect key="frame" x="146" y="599" width="123" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="キーワードで検索"/>
+                                <connections>
+                                    <action selector="keywordSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q8v-Wk-u4C"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -30,26 +38,112 @@
                     <navigationItem key="navigationItem" id="DV5-Da-0bX"/>
                     <connections>
                         <segue destination="5cw-i3-qfO" kind="show" identifier="locationSearch" id="Fjt-aw-4EN"/>
+                        <segue destination="WBg-NQ-mAh" kind="show" identifier="keywordSearch" id="2zT-le-G90"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="109.82142857142857"/>
         </scene>
-        <!--View Controller-->
+        <!--Keyword Search View Controller-->
         <scene sceneID="hM7-Tf-b7h">
             <objects>
-                <viewController id="WBg-NQ-mAh" sceneMemberID="viewController">
+                <viewController id="WBg-NQ-mAh" customClass="KeywordSearchViewController" customModule="RestaurantSearcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KKJ-zk-r8N">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="PB1-Vf-xOj">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k3r-bT-Ekh">
+                                <rect key="frame" x="0.0" y="144" width="414" height="658"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="storeCell" textLabel="UPc-fF-xkY" detailTextLabel="NVk-bg-n7G" style="IBUITableViewCellStyleSubtitle" id="tu2-gj-o1o">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tu2-gj-o1o" id="T3x-F1-XAD">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UPc-fF-xkY">
+                                                    <rect key="frame" x="20" y="10" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NVk-bg-n7G">
+                                                    <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="S0x-PG-Ece">
+                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cn0-Jw-fm0">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
+                                        <state key="normal" title="前のページ"/>
+                                        <connections>
+                                            <action selector="backPageButtonAction:" destination="WBg-NQ-mAh" eventType="touchUpInside" id="Eoo-dn-XhE"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNu-kc-h20">
+                                        <rect key="frame" x="138" y="0.0" width="138" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YuZ-mn-Ue5">
+                                        <rect key="frame" x="276" y="0.0" width="138" height="60"/>
+                                        <state key="normal" title="次のページ"/>
+                                        <connections>
+                                            <action selector="nextPageButtonAction:" destination="WBg-NQ-mAh" eventType="touchUpInside" id="X5s-zU-Xyu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="D48-tx-oew"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="PB1-Vf-xOj" firstAttribute="top" secondItem="yip-wD-ifn" secondAttribute="top" id="2Yy-tw-LP4"/>
+                            <constraint firstItem="PB1-Vf-xOj" firstAttribute="leading" secondItem="yip-wD-ifn" secondAttribute="leading" id="F99-iq-Inl"/>
+                            <constraint firstItem="S0x-PG-Ece" firstAttribute="top" secondItem="k3r-bT-Ekh" secondAttribute="bottom" id="For-Ho-ICT"/>
+                            <constraint firstItem="yip-wD-ifn" firstAttribute="trailing" secondItem="k3r-bT-Ekh" secondAttribute="trailing" id="Hb8-5e-ed1"/>
+                            <constraint firstItem="S0x-PG-Ece" firstAttribute="leading" secondItem="yip-wD-ifn" secondAttribute="leading" id="NwI-Rn-tgk"/>
+                            <constraint firstItem="yip-wD-ifn" firstAttribute="trailing" secondItem="S0x-PG-Ece" secondAttribute="trailing" id="c1R-n7-DIw"/>
+                            <constraint firstItem="yip-wD-ifn" firstAttribute="bottom" secondItem="S0x-PG-Ece" secondAttribute="bottom" id="eRo-QR-zA6"/>
+                            <constraint firstItem="k3r-bT-Ekh" firstAttribute="leading" secondItem="yip-wD-ifn" secondAttribute="leading" id="hfk-Bh-bcv"/>
+                            <constraint firstAttribute="trailing" secondItem="PB1-Vf-xOj" secondAttribute="trailing" id="mPj-CT-k48"/>
+                            <constraint firstItem="k3r-bT-Ekh" firstAttribute="top" secondItem="PB1-Vf-xOj" secondAttribute="bottom" id="udt-Q9-LyK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="yip-wD-ifn"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Wum-ur-3v0"/>
+                    <connections>
+                        <outlet property="backPageButton" destination="cn0-Jw-fm0" id="TeB-H4-poe"/>
+                        <outlet property="keywordSearchBar" destination="PB1-Vf-xOj" id="lOX-yO-7lm"/>
+                        <outlet property="nextPageButton" destination="YuZ-mn-Ue5" id="ZZp-jh-ado"/>
+                        <outlet property="pageLabel" destination="kNu-kc-h20" id="nHT-gR-3Xf"/>
+                        <outlet property="storeTableView" destination="k3r-bT-Ekh" id="4zP-he-gkg"/>
+                        <segue destination="Lw5-f2-ZxC" kind="show" identifier="detailsFromKeyword" id="mZJ-ZM-lEd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P3x-Wo-Di7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2112" y="663"/>
+            <point key="canvasLocation" x="2111.594202898551" y="662.94642857142856"/>
         </scene>
         <!--Details View Controller-->
         <scene sceneID="IoD-Qg-NVc">
@@ -281,4 +375,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="109.82142857142857"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="mZJ-ZM-lEd"/>
+    </inferredMetricsTieBreakers>
 </document>

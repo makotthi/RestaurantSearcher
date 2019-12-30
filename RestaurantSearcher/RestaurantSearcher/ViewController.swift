@@ -14,6 +14,9 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "locationSearch", sender: nil)
     }
     
-
+    @IBAction func keywordSearchButton(_ sender: Any) {
+        performSegue(withIdentifier: "keywordSearch", sender: nil)
+    }
+    
 }
 
