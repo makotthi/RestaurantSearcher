@@ -10,9 +10,8 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var keywordSearchBar: UISearchBar!
     // 現在のページ数を表示するLabel
     @IBOutlet weak var pageLabel: UILabel!
-    // 前のページボタン
+    // ページ移動のボタン
     @IBOutlet weak var backPageButton: UIButton!
-    // 次のページボタン
     @IBOutlet weak var nextPageButton: UIButton!
    
        
@@ -42,7 +41,7 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
     }
 
 
-    // 受け取ったレストランのデータを格納する
+    // 受け取ったレストランのデータを格納する配列
     var restaurantList: [StoreData] = []
     // 選択したレストランのID
     var selectID: String?
@@ -62,11 +61,12 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
         // TableViewnDelegateを設定
         storeTableView.delegate = self
 
-        // searchBarのdelegateを設定
+        // searchBardelegateを設定
         keywordSearchBar.delegate = self
         // プレースホルダーを設定
         keywordSearchBar.placeholder = "キーワードを入力してください"
 
+        
         // ツールバーの生成
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
@@ -74,38 +74,22 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
         toolbar.setItems([spacelItem, doneItem], animated: true)
         keywordSearchBar.inputAccessoryView = toolbar
 
-        // ページ移動のボタンなどを無効化
+        // ページ移動のボタンを無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
-        //searchButton.isEnabled = false
-
     }
     
+    
+    // toolBar関連のメソッド
     // Doneボタンを押した時の処理
     @objc func done() {
         keywordSearchBar.endEditing(true)
     }
 
-    // 位置情報取得成功時に呼ばれます
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if let location = locations.first {
-//            // 緯度と経度を受け取る
-//            latitude = location.coordinate.latitude
-//            longitude = location.coordinate.longitude
-//            // 受け取った位置情報を使って店舗を検索する
-//            if let text = rangeTextField.text {
-//                searchRestaurant(rangeWord: text)
-//            }
-//        }
-//    }
-
-    // 位置情報取得失敗時に呼ばれます
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        print("error")
-//        pageLabel.text = "位置情報の取得に失敗しました"
-//        searchButton.isEnabled = true
-//    }
-
+    
+    
+    
+    // tableView関連のメソッド
     // tableViewCellの総数を返すdatasourceメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
@@ -128,7 +112,7 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
                 }
             }
         }
-        // アクセスを設定
+        // 店舗アクセスを設定
         var accessText = ""
         if let line = restaurantList[indexPath.row].access?.line {
             accessText = accessText + "\(line) "
@@ -171,8 +155,13 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
     }
 
       
+    
+    
+    
+    // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
     func searchRestaurant(keyword: String){
+        // 検索キーワードをsearchingKeywordに代入
         searchingKeyword = keyword
         
         // キーワードをURLエンコードする
@@ -207,6 +196,7 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
                 self.restaurantList.removeAll()
                 if let items = json.rest {
                     for item in items{
+                        // 各店舗のデータを配列に追加
                         self.restaurantList.append(item)
                     }
                 }
@@ -224,110 +214,74 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
                         self.nextPageButton.isEnabled = true
                     }
                 }
-                // 再検索ボタンを有効にする
-                //self.searchButton.isEnabled = true
+                // searchBarのテキストを更新
+                self.keywordSearchBar.text = self.searchingKeyword
 
             } catch {
                 print("エラーが発生しました",error.localizedDescription)
                 self.pageLabel.text = "通信に失敗しました"
-                //self.searchButton.isEnabled = true
             }
         })
         // ダウンロード開始
         task.resume()
-
-        
     }
 
 
-//    @IBAction func searchButtonAction(_ sender: Any) {
-//        // レストランリストの初期化とボタンの無効化
-//        restaurantList.removeAll()
-//        storeTableView.reloadData()
-//        backPageButton.isEnabled = false
-//        nextPageButton.isEnabled = false
-//        searchButton.isEnabled = false
-//        pageLabel.text = "通信中"
-//
-//        // 現在のページ位置を1に
-//        currentPage = 1
-//        // 位置情報を検索して表示
-//        myLocationManager.requestLocation()
-//    }
+    
     
     // 検索ボタンをクリックした時の処理
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを閉じる
         view.endEditing(true)
         
-        // レストランリストの初期化とボタンの無効化
+        // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
+        // ボタンを無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
+        // 現在の状態を表示
         pageLabel.text = "通信中"
 
         // 現在のページ位置を1に
         currentPage = 1
         
         if let searchWord = keywordSearchBar.text {
-            print(searchWord)
             // 検索をする
             searchRestaurant(keyword: searchWord)
         }
     }
 
-
-//    @IBAction func backPageButtonAction(_ sender: Any) {
-//        // レストランリストの初期化とボタンの無効化
-//        restaurantList.removeAll()
-//        storeTableView.reloadData()
-//        backPageButton.isEnabled = false
-//        nextPageButton.isEnabled = false
-//        searchButton.isEnabled = false
-//        pageLabel.text = "通信中"
-//
-//        // 次のページの検索結果を表示
-//        currentPage -= 1
-//        searchRestaurant(rangeWord: searchRange)
-//    }
-
+    // 前のページボタンが押された時の処理
     @IBAction func backPageButtonAction(_ sender: Any) {
-        // レストランリストの初期化とボタンの無効化
+        // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
+        // ボタンを無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
+        // 現在の状態を表示
         pageLabel.text = "通信中"
+        keywordSearchBar.text = searchingKeyword
 
-        // 次のページの検索結果を表示
+        // 前のページの検索結果を表示
         currentPage -= 1
         if let searchWord = searchingKeyword {
             searchRestaurant(keyword: searchWord)
         }
     }
     
-//    @IBAction func nextPageButtonAction(_ sender: Any) {
-//        // レストランリストの初期化とボタンの無効化
-//        restaurantList.removeAll()
-//        storeTableView.reloadData()
-//        backPageButton.isEnabled = false
-//        nextPageButton.isEnabled = false
-//        searchButton.isEnabled = false
-//        pageLabel.text = "通信中"
-//
-//        // 前のページの検索結果を表示
-//        currentPage += 1
-//        searchRestaurant(rangeWord: searchRange)
-//    }
-    
+    // 次のページボタンが押された時の処理
     @IBAction func nextPageButtonAction(_ sender: Any) {
-        // レストランリストの初期化とボタンの無効化
+        // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
+        // ボタンを無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
+        // 現在の状態を表示
         pageLabel.text = "通信中"
+        keywordSearchBar.text = searchingKeyword
 
         // 前のページの検索結果を表示
         currentPage += 1
@@ -335,6 +289,5 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
             searchRestaurant(keyword: searchWord)
         }
     }
-    
 
 }

@@ -35,31 +35,27 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
         let opentime: String?
         let url: String?
         let image_url: StoreImageData?
-        let access: StoreAccessData?
     }
     // 店舗画像のデータを格納する
     struct StoreImageData: Codable{
         let shop_image1: String?
         let shop_image2: String?
-        let qrcode: String?
     }
-    // 店舗アクセスのデータを格納する
-    struct StoreAccessData: Codable{
-        let line: String?
-        let station: String?
-        let station_exit: String?
-        let walk: String?
-    }
-
+    
+    
+    // 画面遷移をした時に呼ばれる
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        // レストランのデータを受け取る
         receiveRestaurantData()
     }
     
     
+    
+    // API通信を行うメソッド
     // レストランのデータを受け取る
     func receiveRestaurantData(){
         if let id = selectID {
@@ -87,6 +83,7 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
                     if let items = json.rest {
                         // 取得したデータをdetailedDataに格納
                         self.storeData = items.first
+                        // 画面上に店舗のデータを表示する
                         self.showStoreData()
                     }
                     
@@ -101,7 +98,8 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
     }
     
 
-    // 受け取ったデータを画面に表示
+    
+    // 取得したデータを画面に表示する
     func showStoreData(){
         // 店舗画像を表示
         if let urlStr = storeData?.image_url?.shop_image1 {
@@ -141,6 +139,8 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
     }
     
     
+    
+    // もっと詳しくボタンが押された時の処理
     // レストランのWebページを表示する
     @IBAction func showWebPageButtonAction(_ sender: Any) {
         // SFSafariViewを開く

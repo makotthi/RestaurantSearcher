@@ -14,6 +14,7 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "locationSearch", sender: nil)
     }
     
+    // キーワードで検索する画面に遷移
     @IBAction func keywordSearchButton(_ sender: Any) {
         performSegue(withIdentifier: "keywordSearch", sender: nil)
     }

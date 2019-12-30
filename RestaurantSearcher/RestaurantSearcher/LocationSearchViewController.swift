@@ -17,9 +17,8 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var rangeTextField: UITextField!
     // 現在のページ数を表示するLabel
     @IBOutlet weak var pageLabel: UILabel!
-    // 前のページボタン
+    // ページ移動のボタン
     @IBOutlet weak var backPageButton: UIButton!
-    // 次のページボタン
     @IBOutlet weak var nextPageButton: UIButton!
     // 再検索ボタン
     @IBOutlet weak var searchButton: UIButton!
@@ -56,13 +55,14 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     // 検索範囲
     var searchRange = "500m"
     
-    // 受け取ったレストランのデータを格納する
+    // 受け取ったレストランのデータを格納する配列
     var restaurantList: [StoreData] = []
     // 選択したレストランのID
     var selectID: String?
     // 現在表示しているページの番号と全ページの数
     var currentPage = 1
     var totalPage = 1
+    
     
     
     // 初回の画面遷移した時に呼ばれる
@@ -72,14 +72,12 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         // 位置情報を受け取る処理の初期設定
         myLocationManager = CLLocationManager()
         myLocationManager.delegate = self
-        
          // 承認されていない場合はここで認証ダイアログを表示します.
         let status = CLLocationManager.authorizationStatus()
         if(status == CLAuthorizationStatus.notDetermined) {
             print("didChangeAuthorizationStatus:\(status)")
             self.myLocationManager.requestWhenInUseAuthorization()
         }
-        
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         myLocationManager.distanceFilter = kCLDistanceFilterNone
         
@@ -116,16 +114,18 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         myLocationManager.requestLocation()
     }
     
+    
+    
+    // locationManager関連のメソッド
     // 位置情報取得成功時に呼ばれます
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             // 緯度と経度を受け取る
             latitude = location.coordinate.latitude
             longitude = location.coordinate.longitude
-            // 受け取った位置情報を使って店舗を検索する
-            if let text = rangeTextField.text {
-                searchRestaurant(rangeWord: text)
-            }
+            
+            // 店舗を検索する
+            searchRestaurant(rangeWord: searchRange)
         }
     }
     
@@ -138,6 +138,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     
    
     
+    // pickerView関連のメソッド
     // PickerViewの列数を設定
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -158,12 +159,17 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         rangeTextField.text = pickerItems[row]
     }
     
+    
+    // toolBar関連のメソッド
     // Doneボタンを押した時の処理
     @objc func done() {
         rangeTextField.endEditing(true)
     }
  
     
+    
+    
+    // tableView関連のメソッド
     // tableViewCellの総数を返すdatasourceメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
@@ -186,7 +192,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
                 }
             }
         }
-        // アクセスを設定
+        // 店舗アクセスを設定
         var accessText = ""
         if let line = restaurantList[indexPath.row].access?.line {
             accessText = accessText + "\(line) "
@@ -207,6 +213,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         // 設定したCellオブジェクトを画面に反映
         return cell
     }
+    
     
     // Cellが選択された際に呼び出されるdelegateメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -229,10 +236,12 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     }
     
        
+    
+    // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
     func searchRestaurant(rangeWord: String){
         var range = 2
-        // rangeTextFieldの値から検索範囲を決定する
+        // rangeTextFieldの値をリクエストパラメータの値に直す
         switch rangeWord {
         case "300m":
             range = 1
@@ -277,6 +286,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
                     self.restaurantList.removeAll()
                     if let items = json.rest {
                         for item in items{
+                            // 各店舗のデータを配列に追加
                             self.restaurantList.append(item)
                         }
                     }
@@ -294,6 +304,8 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
                             self.nextPageButton.isEnabled = true
                         }
                     }
+                    // textFieldのテキストを更新
+                    self.rangeTextField.text = self.searchRange
                     // 再検索ボタンを有効にする
                     self.searchButton.isEnabled = true
                     
@@ -310,46 +322,61 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     
+    
+    // 再検索ボタンが押された時の処理
     @IBAction func searchButtonAction(_ sender: Any) {
-        // レストランリストの初期化とボタンの無効化
+        // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
+        // ボタンの無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
+        // 現在の状態を表示
         pageLabel.text = "通信中"
         
+        // 検索する範囲をsearchRangeに代入
+        if let range = rangeTextField.text {
+            searchRange = range
+        }
         // 現在のページ位置を1に
         currentPage = 1
         // 位置情報を検索して表示
         myLocationManager.requestLocation()
     }
     
-    
+    // 前のページボタンが押された時の処理
     @IBAction func backPageButtonAction(_ sender: Any) {
-        // レストランリストの初期化とボタンの無効化
+        // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
+        // ボタンの無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
+        // 現在の状態を表示
         pageLabel.text = "通信中"
+        rangeTextField.text = searchRange
         
-        // 次のページの検索結果を表示
+        // 前のページの検索結果を表示
         currentPage -= 1
         searchRestaurant(rangeWord: searchRange)
     }
     
+    // 次のページボタンが押された時の処理
     @IBAction func nextPageButtonAction(_ sender: Any) {
-        // レストランリストの初期化とボタンの無効化
+        // tableViewのデータを一旦消す
         restaurantList.removeAll()
         storeTableView.reloadData()
+        // ボタンの無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
+        // 現在の状態を表示
         pageLabel.text = "通信中"
+        rangeTextField.text = searchRange
         
-        // 前のページの検索結果を表示
+        // 次のページの検索結果を表示
         currentPage += 1
         searchRestaurant(rangeWord: searchRange)
     }
