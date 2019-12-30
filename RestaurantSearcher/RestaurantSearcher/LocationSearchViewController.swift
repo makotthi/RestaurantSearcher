@@ -198,7 +198,9 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
             accessText = accessText + "\(exit) "
         }
         if let walk = restaurantList[indexPath.row].access?.walk {
-            accessText = accessText + "\(walk)分"
+            if walk != "" {
+                accessText = accessText + "\(walk)分"
+            }
         }
         cell.detailTextLabel?.text = accessText
         

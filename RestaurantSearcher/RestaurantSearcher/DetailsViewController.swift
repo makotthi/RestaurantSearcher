@@ -1,8 +1,20 @@
 
 
 import UIKit
+import SafariServices
 
-class DetailsViewController: UIViewController {
+class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
+    
+    // 店の画像を表示するimageView
+    @IBOutlet weak var storeImageView1: UIImageView!
+    @IBOutlet weak var storeImageView2: UIImageView!
+    // 店舗名称、住所、電話番号、営業時間を表示するlabel
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    @IBOutlet weak var opentimeLabel: UILabel!
+    
+    
     
     // 選択したレストランのID
     var selectID: String?
@@ -21,6 +33,7 @@ class DetailsViewController: UIViewController {
         let address: String?
         let tel: String?
         let opentime: String?
+        let url: String?
         let image_url: StoreImageData?
         let access: StoreAccessData?
     }
@@ -74,6 +87,7 @@ class DetailsViewController: UIViewController {
                     if let items = json.rest {
                         // 取得したデータをdetailedDataに格納
                         self.storeData = items.first
+                        self.showStoreData()
                     }
                     
                 } catch {
@@ -87,4 +101,69 @@ class DetailsViewController: UIViewController {
     }
     
 
+    // 受け取ったデータを画面に表示
+    func showStoreData(){
+        // 店舗画像を表示
+        if let urlStr = storeData?.image_url?.shop_image1 {
+            if let imageURL = URL(string: urlStr){
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    storeImageView1.image = UIImage(data: imageData)
+                }
+            }
+        }
+        if let urlStr = storeData?.image_url?.shop_image2 {
+            if let imageURL = URL(string: urlStr){
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    storeImageView2.image = UIImage(data: imageData)
+                }
+            }
+        }
+        
+        // 店舗名称を表示
+        nameLabel.text = storeData?.name
+        nameLabel.sizeToFit()
+        
+        // 住所を表示
+        addressLabel.text = storeData?.address
+        addressLabel.sizeToFit()
+        
+        // 電話番号を表示
+        if let phoneNumber = storeData?.tel {
+            phoneNumberLabel.text = "TEL: " + phoneNumber
+        }
+        phoneNumberLabel.sizeToFit()
+        
+        // 営業時間
+        if let openTime = storeData?.opentime {
+            opentimeLabel.text = "営業時間:\n" + openTime
+        }
+        opentimeLabel.sizeToFit()
+    }
+    
+    
+    // レストランのWebページを表示する
+    @IBAction func showWebPageButtonAction(_ sender: Any) {
+        // SFSafariViewを開く
+        guard let urlStr = storeData?.url else {
+            return
+        }
+        guard let url = URL(string: urlStr) else {
+            return
+        }
+        let safariViewController = SFSafariViewController(url: url)
+        
+        // delegateの通知先を設定
+        safariViewController.delegate = self
+        
+        // safariViewが開かれる
+        present(safariViewController, animated: true, completion: nil)
+    }
+    
+    // safariViewが閉じられた時に呼ばれるdelegateメソッド
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        // safariViewを閉じる
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
