@@ -15,28 +15,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibm-k9-3rx">
-                                <rect key="frame" x="153" y="460" width="108" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ibm-k9-3rx">
+                                <rect key="frame" x="153" y="533" width="108" height="30"/>
                                 <state key="normal" title="現在地から検索"/>
                                 <connections>
                                     <action selector="locationSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JM4-Vt-GWJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qU1-o2-lyd">
-                                <rect key="frame" x="146" y="599" width="123" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qU1-o2-lyd">
+                                <rect key="frame" x="145.5" y="633" width="123" height="30"/>
                                 <state key="normal" title="キーワードで検索"/>
                                 <connections>
                                     <action selector="keywordSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q8v-Wk-u4C"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yli-9h-jfL">
+                                <rect key="frame" x="68.5" y="273" width="277.5" height="50"/>
+                                <fontDescription key="fontDescription" name="Rockwell-BoldItalic" family="Rockwell" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="qU1-o2-lyd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="200" id="4kJ-zT-KTH"/>
+                            <constraint firstItem="Yli-9h-jfL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-150" id="BEj-dw-0Gh"/>
+                            <constraint firstItem="qU1-o2-lyd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DW0-cI-iEE"/>
+                            <constraint firstItem="Yli-9h-jfL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fZ4-Jj-eoL"/>
+                            <constraint firstItem="Ibm-k9-3rx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="m6J-jC-9Bc"/>
+                            <constraint firstItem="Ibm-k9-3rx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="100" id="viw-9A-Bik"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="DV5-Da-0bX"/>
                     <connections>
+                        <outlet property="titleLabel" destination="Yli-9h-jfL" id="AY0-ej-R4v"/>
                         <segue destination="5cw-i3-qfO" kind="show" identifier="locationSearch" id="Fjt-aw-4EN"/>
                         <segue destination="WBg-NQ-mAh" kind="show" identifier="keywordSearch" id="2zT-le-G90"/>
                     </connections>

@@ -289,6 +289,8 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
                             // 各店舗のデータを配列に追加
                             self.restaurantList.append(item)
                         }
+                    } else {
+                        self.pageLabel.text = "検索結果なし"
                     }
                     
                     // TableViewを更新

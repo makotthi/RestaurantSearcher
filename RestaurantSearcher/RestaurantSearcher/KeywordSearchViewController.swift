@@ -199,6 +199,9 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
                         // 各店舗のデータを配列に追加
                         self.restaurantList.append(item)
                     }
+                } else {
+                    // 該当するデータがなかった時に表示
+                    self.pageLabel.text = "検索結果なし"
                 }
 
                 // TableViewを更新
