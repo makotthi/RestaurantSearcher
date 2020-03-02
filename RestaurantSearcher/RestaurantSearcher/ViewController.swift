@@ -5,7 +5,7 @@ import UIKit
 class ViewController: UIViewController {
 
     // タイトルを表示するラベル
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -17,12 +17,12 @@ class ViewController: UIViewController {
     }
     
     // 現在地から検索する画面に遷移
-    @IBAction func locationSearchButton(_ sender: Any) {
+    @IBAction private func locationSearchButton(_ sender: Any) {
         performSegue(withIdentifier: "locationSearch", sender: nil)
     }
     
     // キーワードで検索する画面に遷移
-    @IBAction func keywordSearchButton(_ sender: Any) {
+    @IBAction private func keywordSearchButton(_ sender: Any) {
         performSegue(withIdentifier: "keywordSearch", sender: nil)
     }
     

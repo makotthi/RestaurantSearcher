@@ -6,14 +6,14 @@ import UIKit
 class KeywordSearchViewController: UIViewController {
     
     // 店の一覧を表示するTableView
-    @IBOutlet weak var storeTableView: UITableView!
+    @IBOutlet private weak var storeTableView: UITableView!
     // 検索キーワードを入力するsearchBar
-    @IBOutlet weak var keywordSearchBar: UISearchBar!
+    @IBOutlet private weak var keywordSearchBar: UISearchBar!
     // 現在のページ数を表示するLabel
-    @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet private weak var pageLabel: UILabel!
     // ページ移動のボタン
-    @IBOutlet weak var backPageButton: UIButton!
-    @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet private weak var backPageButton: UIButton!
+    @IBOutlet private weak var nextPageButton: UIButton!
    
        
        
@@ -43,14 +43,14 @@ class KeywordSearchViewController: UIViewController {
 
 
     // 受け取ったレストランのデータを格納する配列
-    var restaurantList: [StoreData] = []
+    private var restaurantList: [StoreData] = []
     // 選択したレストランのID
-    var selectID: String?
+    private var selectID: String?
     // 現在表示しているページの番号と全ページの数
-    var currentPage = 1
-    var totalPage = 1
+    private var currentPage = 1
+    private var totalPage = 1
     // 現在検索しているキーワード
-    var searchingKeyword: String?
+    private var searchingKeyword: String?
 
 
     // 初回の画面遷移した時に呼ばれる
@@ -66,7 +66,7 @@ class KeywordSearchViewController: UIViewController {
 
 // MARK: -InitialSettings
 extension KeywordSearchViewController{
-    func initialSetting(){
+    private func initialSetting(){
         // TableViewDataSourceを設定
         storeTableView.dataSource = self
         // TableViewnDelegateを設定
@@ -94,7 +94,7 @@ extension KeywordSearchViewController{
     // toolBar関連のメソッド
     
     // ツールバーの生成
-    func makeToolbar(){
+    private func makeToolbar(){
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -103,7 +103,7 @@ extension KeywordSearchViewController{
     }
     
     // Doneボタンを押した時の処理
-    @objc func done() {
+    @objc private func done() {
         keywordSearchBar.endEditing(true)
     }
 }
@@ -185,7 +185,7 @@ extension KeywordSearchViewController: UITableViewDelegate{
 extension KeywordSearchViewController{
     // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
-    func searchRestaurant(keyword: String){
+    private func searchRestaurant(keyword: String){
         // 検索キーワードをsearchingKeywordに代入
         searchingKeyword = keyword
         
@@ -286,7 +286,7 @@ extension KeywordSearchViewController: UISearchBarDelegate{
 // MARK: -Action
 extension KeywordSearchViewController{
     // 前のページボタンが押された時の処理
-    @IBAction func backPageButtonAction(_ sender: Any) {
+    @IBAction private func backPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -305,7 +305,7 @@ extension KeywordSearchViewController{
     }
     
     // 次のページボタンが押された時の処理
-    @IBAction func nextPageButtonAction(_ sender: Any) {
+    @IBAction private func nextPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()

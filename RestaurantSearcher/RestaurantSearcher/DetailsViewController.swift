@@ -7,13 +7,13 @@ import SafariServices
 class DetailsViewController: UIViewController {
     
     // 店の画像を表示するimageView
-    @IBOutlet weak var storeImageView1: UIImageView!
-    @IBOutlet weak var storeImageView2: UIImageView!
+    @IBOutlet private weak var storeImageView1: UIImageView!
+    @IBOutlet private weak var storeImageView2: UIImageView!
     // 店舗名称、住所、電話番号、営業時間を表示するlabel
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var phoneNumberLabel: UILabel!
-    @IBOutlet weak var opentimeLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
+    @IBOutlet private weak var phoneNumberLabel: UILabel!
+    @IBOutlet private weak var opentimeLabel: UILabel!
     
     
     // 店舗データを格納する配列
@@ -41,7 +41,7 @@ class DetailsViewController: UIViewController {
     var selectID: String?
     
     // 店の詳細データ
-    var storeData: StoreData?
+    private var storeData: StoreData?
     
     
     // 画面遷移をした時に呼ばれる
@@ -62,7 +62,7 @@ class DetailsViewController: UIViewController {
 extension DetailsViewController{
     // API通信を行うメソッド
     // レストランのデータを受け取る
-    func receiveRestaurantData(){
+    private func receiveRestaurantData(){
         if let id = selectID {
             // リクエストURLの組み立て
             guard let requestURL = URL(string: "https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=6cf2ac2af697b3358620582d34884f09&id=\(id)") else {
@@ -107,7 +107,7 @@ extension DetailsViewController{
 // MARK: -UI
 extension DetailsViewController{
     // 取得したデータを画面に表示する
-    func showStoreData(){
+    private func showStoreData(){
         // 店舗画像を表示
         if let urlStr = storeData?.image_url?.shop_image1 {
             if let imageURL = URL(string: urlStr){
@@ -151,7 +151,7 @@ extension DetailsViewController{
 extension DetailsViewController{
     // もっと詳しくボタンが押された時の処理
     // レストランのWebページを表示する
-    @IBAction func showWebPageButtonAction(_ sender: Any) {
+    @IBAction private func showWebPageButtonAction(_ sender: Any) {
         // SFSafariViewを開く
         guard let urlStr = storeData?.url else {
             return
@@ -167,7 +167,7 @@ extension DetailsViewController{
 // MARK: -SFSafariViewControllerDelegate
 extension DetailsViewController: SFSafariViewControllerDelegate{
     // SFSafariViewを開く
-    func openSafariView(url: URL){
+    private func openSafariView(url: URL){
         let safariViewController = SFSafariViewController(url: url)
         
         // delegateの通知先を設定

@@ -7,22 +7,22 @@ import CoreLocation
 class LocationSearchViewController: UIViewController {
     
     // 位置情報を受け取るクラスのインスタンス
-    var myLocationManager:CLLocationManager!
+    private var myLocationManager:CLLocationManager!
     // 検索範囲を入力するPickerViewのインスタンス
-    var rangePickerView: UIPickerView!
-    let pickerItems = ["300m", "500m", "1000m", "2000m", "3000m"]
+    private var rangePickerView: UIPickerView!
+    private let pickerItems = ["300m", "500m", "1000m", "2000m", "3000m"]
     
     // 店の一覧を表示するTableView
-    @IBOutlet weak var storeTableView: UITableView!
+    @IBOutlet private weak var storeTableView: UITableView!
     // 検索範囲を入力、表示するTextField
-    @IBOutlet weak var rangeTextField: UITextField!
+    @IBOutlet private weak var rangeTextField: UITextField!
     // 現在のページ数を表示するLabel
-    @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet private weak var pageLabel: UILabel!
     // ページ移動のボタン
-    @IBOutlet weak var backPageButton: UIButton!
-    @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet private weak var backPageButton: UIButton!
+    @IBOutlet private weak var nextPageButton: UIButton!
     // 再検索ボタン
-    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet private weak var searchButton: UIButton!
     
     
     // 店舗データを格納する配列
@@ -51,18 +51,18 @@ class LocationSearchViewController: UIViewController {
     
     
     // 緯度と経度
-    var latitude: Double?
-    var longitude: Double?
+    private var latitude: Double?
+    private var longitude: Double?
     // 検索範囲
-    var searchRange = "500m"
+    private var searchRange = "500m"
     
     // 受け取ったレストランのデータを格納する配列
-    var restaurantList: [StoreData] = []
+    private var restaurantList: [StoreData] = []
     // 選択したレストランのID
-    var selectID: String?
+    private var selectID: String?
     // 現在表示しているページの番号と全ページの数
-    var currentPage = 1
-    var totalPage = 1
+    private var currentPage = 1
+    private var totalPage = 1
     
     
     
@@ -82,7 +82,7 @@ class LocationSearchViewController: UIViewController {
 
 // MARK: -InitialSettings
 extension LocationSearchViewController{
-    func initialSetting(){
+    private func initialSetting(){
         // 位置情報を受け取る処理の初期設定
         myLocationManager = CLLocationManager()
         myLocationManager.delegate = self
@@ -178,7 +178,7 @@ extension LocationSearchViewController: UIPickerViewDelegate{
 // MARK: -UIToolbar
 extension LocationSearchViewController{
     // toolBarを生成
-    func makeToolBar(){
+    private func makeToolBar(){
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -188,7 +188,7 @@ extension LocationSearchViewController{
     
     // toolBar関連のメソッド
     // Doneボタンを押した時の処理
-    @objc func done() {
+    @objc private func done() {
         rangeTextField.endEditing(true)
     }
 }
@@ -270,7 +270,7 @@ extension LocationSearchViewController: UITableViewDelegate{
 extension LocationSearchViewController{
     // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
-    func searchRestaurant(rangeWord: String){
+    private func searchRestaurant(rangeWord: String){
         var range = 2
         // rangeTextFieldの値をリクエストパラメータの値に直す
         switch rangeWord {
@@ -359,7 +359,7 @@ extension LocationSearchViewController{
 // MARK: -Action
 extension LocationSearchViewController{
     // 再検索ボタンが押された時の処理
-    @IBAction func searchButtonAction(_ sender: Any) {
+    @IBAction private func searchButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -381,7 +381,7 @@ extension LocationSearchViewController{
     }
     
     // 前のページボタンが押された時の処理
-    @IBAction func backPageButtonAction(_ sender: Any) {
+    @IBAction private func backPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -399,7 +399,7 @@ extension LocationSearchViewController{
     }
     
     // 次のページボタンが押された時の処理
-    @IBAction func nextPageButtonAction(_ sender: Any) {
+    @IBAction private func nextPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消す
         restaurantList.removeAll()
         storeTableView.reloadData()
