@@ -54,7 +54,7 @@ class KeywordSearchViewController: UIViewController {
 
 
     // 初回の画面遷移した時に呼ばれる
-    override internal func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         // 初期設定
@@ -112,13 +112,13 @@ extension KeywordSearchViewController{
 // MARK: -UITableViewDataSource
 extension KeywordSearchViewController: UITableViewDataSource{
     // tableViewCellの総数を返すdatasourceメソッド
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
         return restaurantList.count
     }
 
     // tableViewCellに値をセットするdatasourceメソッド
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 表示するCellオブジェクトを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath)
         // 店舗名称を設定
@@ -160,7 +160,7 @@ extension KeywordSearchViewController: UITableViewDataSource{
 // MARK: -UITableViewDelegate
 extension KeywordSearchViewController: UITableViewDelegate{
     // Cellが選択された際に呼び出されるdelegateメソッド
-    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 初期化
         selectID = nil
         // ハイライト解除
@@ -172,7 +172,7 @@ extension KeywordSearchViewController: UITableViewDelegate{
     }
 
     // 遷移先に値を渡す処理
-    internal override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailsFromKeyword" {
             let next = segue.destination as! DetailsViewController
             next.selectID = self.selectID
@@ -259,7 +259,7 @@ extension KeywordSearchViewController{
 // MARK: -UISearchBarDelegate
 extension KeywordSearchViewController: UISearchBarDelegate{
     // 検索ボタンをクリックした時の処理
-    internal func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを閉じる
         view.endEditing(true)
         
