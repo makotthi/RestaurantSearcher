@@ -6,14 +6,14 @@ import UIKit
 class KeywordSearchViewController: UIViewController {
     
     // 店の一覧を表示するTableView
-    @IBOutlet weak var storeTableView: UITableView!
+    @IBOutlet private weak var storeTableView: UITableView!
     // 検索キーワードを入力するsearchBar
-    @IBOutlet weak var keywordSearchBar: UISearchBar!
+    @IBOutlet private weak var keywordSearchBar: UISearchBar!
     // 現在のページ数を表示するLabel
-    @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet private weak var pageLabel: UILabel!
     // ページ移動のボタン
-    @IBOutlet weak var backPageButton: UIButton!
-    @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet private weak var backPageButton: UIButton!
+    @IBOutlet private weak var nextPageButton: UIButton!
    
        
        
@@ -43,18 +43,18 @@ class KeywordSearchViewController: UIViewController {
 
 
     // 受け取ったレストランのデータを格納する配列
-    var restaurantList: [StoreData] = []
+    private var restaurantList: [StoreData] = []
     // 選択したレストランのID
-    var selectID: String?
+    private var selectID: String?
     // 現在表示しているページの番号と全ページの数
-    var currentPage = 1
-    var totalPage = 1
+    private var currentPage = 1
+    private var totalPage = 1
     // 現在検索しているキーワード
-    var searchingKeyword: String?
+    private var searchingKeyword: String?
 
 
     // 初回の画面遷移した時に呼ばれる
-    override func viewDidLoad() {
+    override internal func viewDidLoad() {
         super.viewDidLoad()
         
         // 初期設定
@@ -66,7 +66,7 @@ class KeywordSearchViewController: UIViewController {
 
 // MARK: -InitialSettings
 extension KeywordSearchViewController{
-    func initialSetting(){
+    private func initialSetting(){
         // TableViewDataSourceを設定
         storeTableView.dataSource = self
         // TableViewnDelegateを設定
@@ -94,7 +94,7 @@ extension KeywordSearchViewController{
     // toolBar関連のメソッド
     
     // ツールバーの生成
-    func makeToolbar(){
+    private func makeToolbar(){
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -103,7 +103,7 @@ extension KeywordSearchViewController{
     }
     
     // Doneボタンを押した時の処理
-    @objc func done() {
+    @objc private func done() {
         keywordSearchBar.endEditing(true)
     }
 }
@@ -112,13 +112,13 @@ extension KeywordSearchViewController{
 // MARK: -UITableViewDataSource
 extension KeywordSearchViewController: UITableViewDataSource{
     // tableViewCellの総数を返すdatasourceメソッド
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
         return restaurantList.count
     }
 
     // tableViewCellに値をセットするdatasourceメソッド
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 表示するCellオブジェクトを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath)
         // 店舗名称を設定
@@ -160,7 +160,7 @@ extension KeywordSearchViewController: UITableViewDataSource{
 // MARK: -UITableViewDelegate
 extension KeywordSearchViewController: UITableViewDelegate{
     // Cellが選択された際に呼び出されるdelegateメソッド
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 初期化
         selectID = nil
         // ハイライト解除
@@ -172,7 +172,7 @@ extension KeywordSearchViewController: UITableViewDelegate{
     }
 
     // 遷移先に値を渡す処理
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    internal override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailsFromKeyword" {
             let next = segue.destination as! DetailsViewController
             next.selectID = self.selectID
@@ -185,7 +185,7 @@ extension KeywordSearchViewController: UITableViewDelegate{
 extension KeywordSearchViewController{
     // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
-    func searchRestaurant(keyword: String){
+    private func searchRestaurant(keyword: String){
         // 検索キーワードをsearchingKeywordに代入
         searchingKeyword = keyword
         
@@ -259,7 +259,7 @@ extension KeywordSearchViewController{
 // MARK: -UISearchBarDelegate
 extension KeywordSearchViewController: UISearchBarDelegate{
     // 検索ボタンをクリックした時の処理
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    internal func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを閉じる
         view.endEditing(true)
         
@@ -286,7 +286,7 @@ extension KeywordSearchViewController: UISearchBarDelegate{
 // MARK: -Action
 extension KeywordSearchViewController{
     // 前のページボタンが押された時の処理
-    @IBAction func backPageButtonAction(_ sender: Any) {
+    @IBAction private func backPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -305,7 +305,7 @@ extension KeywordSearchViewController{
     }
     
     // 次のページボタンが押された時の処理
-    @IBAction func nextPageButtonAction(_ sender: Any) {
+    @IBAction private func nextPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
