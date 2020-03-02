@@ -208,16 +208,12 @@ extension LocationSearchViewController: UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath)
         // 店舗名称を設定
         cell.textLabel?.text = restaurantList[indexPath.row].name
+        
         // サムネイル画像を取得
         cell.imageView?.image = nil
-        if let thumbnail:String = restaurantList[indexPath.row].image_url?.shop_image1 {
-            if let thumbnailURL = URL(string: thumbnail) {
-                if let imageData = try? Data(contentsOf: thumbnailURL) {
-                    // 取得できたら、サムネイル画像をCellに設定
-                    cell.imageView?.image = UIImage(data: imageData)
-                }
-            }
-        }
+        // 画像を非同期で読み込む
+        cell.imageView?.loadImage(url: restaurantList[indexPath.row].image_url?.shop_image1)
+        
         // 店舗アクセスを設定
         var accessText = ""
         if let line = restaurantList[indexPath.row].access?.line {
