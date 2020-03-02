@@ -67,7 +67,7 @@ class LocationSearchViewController: UIViewController {
     
     
     // 初回の画面遷移した時に呼ばれる
-    override internal func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         // 初期設定
@@ -127,7 +127,7 @@ extension LocationSearchViewController{
 extension LocationSearchViewController: CLLocationManagerDelegate{
     // locationManager関連のメソッド
     // 位置情報取得成功時に呼ばれます
-    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             // 緯度と経度を受け取る
             latitude = location.coordinate.latitude
@@ -139,7 +139,7 @@ extension LocationSearchViewController: CLLocationManagerDelegate{
     }
     
     // 位置情報取得失敗時に呼ばれます
-    internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error")
         pageLabel.text = "位置情報の取得に失敗しました"
         searchButton.isEnabled = true
@@ -150,12 +150,12 @@ extension LocationSearchViewController: CLLocationManagerDelegate{
 // MARK: -UIPickerViewDataSource
 extension LocationSearchViewController: UIPickerViewDataSource{
     // PickerViewの列数を設定
-    internal func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     // PickerViewの行数を設定
-    internal func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerItems.count
     }
 }
@@ -164,12 +164,12 @@ extension LocationSearchViewController: UIPickerViewDataSource{
 // MARK: -UIPickerViewDelegate
 extension LocationSearchViewController: UIPickerViewDelegate{
     // PickerViewの要素を設定
-    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerItems[row]
     }
     
     // PickerViewで選択したものをtextFieldに表示
-    internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         rangeTextField.text = pickerItems[row]
     }
 }
@@ -197,13 +197,13 @@ extension LocationSearchViewController{
 // MARK: -UITableViewDataSource
 extension LocationSearchViewController: UITableViewDataSource{
     // tableViewCellの総数を返すdatasourceメソッド
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
         return restaurantList.count
     }
     
     // tableViewCellに値をセットするdatasourceメソッド
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 表示するCellオブジェクトを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath)
         // 店舗名称を設定
@@ -245,7 +245,7 @@ extension LocationSearchViewController: UITableViewDataSource{
 // MARK: -UITableViewDelegate
 extension LocationSearchViewController: UITableViewDelegate{
     // Cellが選択された際に呼び出されるdelegateメソッド
-    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 初期化
         selectID = nil
         // ハイライト解除
@@ -257,7 +257,7 @@ extension LocationSearchViewController: UITableViewDelegate{
     }
     
     // 遷移先に値を渡す処理
-    internal override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailsFromLocation" {
             let next = segue.destination as! DetailsViewController
             next.selectID = self.selectID
