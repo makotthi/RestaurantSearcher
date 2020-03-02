@@ -45,7 +45,7 @@ class DetailsViewController: UIViewController {
     
     
     // 画面遷移をした時に呼ばれる
-    internal override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -178,7 +178,7 @@ extension DetailsViewController: SFSafariViewControllerDelegate{
     }
     
     // safariViewが閉じられた時に呼ばれるdelegateメソッド
-    internal func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         // safariViewを閉じる
         dismiss(animated: true, completion: nil)
     }
