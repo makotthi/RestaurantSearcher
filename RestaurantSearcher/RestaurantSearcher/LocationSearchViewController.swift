@@ -383,5 +383,10 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         searchRestaurant(rangeWord: searchRange)
     }
     
+}
+
+
+// MARK: -Action
+extension LocationSearchViewController{
     
 }

@@ -16,6 +16,26 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var opentimeLabel: UILabel!
     
     
+    // 店舗データを格納する配列
+    struct StoreDataArray: Codable{
+        let rest: [StoreData]?
+    }
+    // 店舗のデータを格納する
+    struct StoreData: Codable{
+        let id: String?
+        let name: String?
+        let address: String?
+        let tel: String?
+        let opentime: String?
+        let url: String?
+        let image_url: StoreImageData?
+    }
+    // 店舗画像のデータを格納する
+    struct StoreImageData: Codable{
+        let shop_image1: String?
+        let shop_image2: String?
+    }
+    
     
     // 選択したレストランのID
     var selectID: String?
@@ -38,29 +58,8 @@ class DetailsViewController: UIViewController {
 }
 
 
-// MARK: -通信
+// MARK: -API
 extension DetailsViewController{
-    // 店舗データを格納する配列
-    struct StoreDataArray: Codable{
-        let rest: [StoreData]?
-    }
-    // 店舗のデータを格納する
-    struct StoreData: Codable{
-        let id: String?
-        let name: String?
-        let address: String?
-        let tel: String?
-        let opentime: String?
-        let url: String?
-        let image_url: StoreImageData?
-    }
-    // 店舗画像のデータを格納する
-    struct StoreImageData: Codable{
-        let shop_image1: String?
-        let shop_image2: String?
-    }
-    
-    
     // API通信を行うメソッド
     // レストランのデータを受け取る
     func receiveRestaurantData(){
