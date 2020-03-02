@@ -3,7 +3,8 @@
 import UIKit
 import CoreLocation
 
-class LocationSearchViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate {
+// MARK: -vars and initialize
+class LocationSearchViewController: UIViewController {
     
     // 位置情報を受け取るクラスのインスタンス
     var myLocationManager:CLLocationManager!
@@ -69,6 +70,19 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 初期設定
+        initialSetting()
+        
+        // 現在地を取得
+        myLocationManager.requestLocation()
+    }
+    
+}
+
+
+// MARK: -InitialSettings
+extension LocationSearchViewController{
+    func initialSetting(){
         // 位置情報を受け取る処理の初期設定
         myLocationManager = CLLocationManager()
         myLocationManager.delegate = self
@@ -96,11 +110,7 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         // textFieldのinputViewにpickeViewを設定
         rangeTextField.inputView = rangePickerView
         // ツールバーの生成
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
-        let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-        toolbar.setItems([spacelItem, doneItem], animated: true)
-        rangeTextField.inputAccessoryView = toolbar
+        makeToolBar()
         
         // 検索範囲の初期値を500mに設定
         rangeTextField.text = pickerItems[1]
@@ -109,13 +119,12 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
-        
-        // 現在地を取得
-        myLocationManager.requestLocation()
     }
-    
-    
-    
+}
+
+
+// MARK: -CLLocationManagerDelegate
+extension LocationSearchViewController: CLLocationManagerDelegate{
     // locationManager関連のメソッド
     // 位置情報取得成功時に呼ばれます
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -135,10 +144,11 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         pageLabel.text = "位置情報の取得に失敗しました"
         searchButton.isEnabled = true
     }
-    
-   
-    
-    // pickerView関連のメソッド
+}
+
+
+// MARK: -UIPickerViewDataSource
+extension LocationSearchViewController: UIPickerViewDataSource{
     // PickerViewの列数を設定
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -148,7 +158,11 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerItems.count
     }
-    
+}
+
+
+// MARK: -UIPickerViewDelegate
+extension LocationSearchViewController: UIPickerViewDelegate{
     // PickerViewの要素を設定
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerItems[row]
@@ -158,18 +172,30 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         rangeTextField.text = pickerItems[row]
     }
-    
+}
+
+
+// MARK: -UIToolbar
+extension LocationSearchViewController{
+    // toolBarを生成
+    func makeToolBar(){
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
+        let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        toolbar.setItems([spacelItem, doneItem], animated: true)
+        rangeTextField.inputAccessoryView = toolbar
+    }
     
     // toolBar関連のメソッド
     // Doneボタンを押した時の処理
     @objc func done() {
         rangeTextField.endEditing(true)
     }
- 
-    
-    
-    
-    // tableView関連のメソッド
+}
+
+
+// MARK: -UITableViewDataSource
+extension LocationSearchViewController: UITableViewDataSource{
     // tableViewCellの総数を返すdatasourceメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
@@ -213,8 +239,11 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         // 設定したCellオブジェクトを画面に反映
         return cell
     }
-    
-    
+}
+
+
+// MARK: -UITableViewDelegate
+extension LocationSearchViewController: UITableViewDelegate{
     // Cellが選択された際に呼び出されるdelegateメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 初期化
@@ -234,9 +263,11 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
             next.selectID = self.selectID
         }
     }
-    
-       
-    
+}
+
+
+// MARK: -API
+extension LocationSearchViewController{
     // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
     func searchRestaurant(rangeWord: String){
@@ -322,9 +353,11 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
 
         }
     }
-    
-    
-    
+}
+
+
+// MARK: -Action
+extension LocationSearchViewController{
     // 再検索ボタンが押された時の処理
     @IBAction func searchButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
@@ -382,6 +415,4 @@ class LocationSearchViewController: UIViewController, CLLocationManagerDelegate,
         currentPage += 1
         searchRestaurant(rangeWord: searchRange)
     }
-    
-    
 }
