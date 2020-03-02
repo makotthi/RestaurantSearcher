@@ -2,7 +2,8 @@
 
 import UIKit
 
-class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+// MARK: -vars and initialize
+class KeywordSearchViewController: UIViewController {
     
     // 店の一覧を表示するTableView
     @IBOutlet weak var storeTableView: UITableView!
@@ -55,7 +56,17 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
     // 初回の画面遷移した時に呼ばれる
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 初期設定
+        initialSetting()
+    }
+    
+}
 
+
+// MARK: -InitialSettings
+extension KeywordSearchViewController{
+    func initialSetting(){
         // TableViewDataSourceを設定
         storeTableView.dataSource = self
         // TableViewnDelegateを設定
@@ -68,28 +79,38 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
 
         
         // ツールバーの生成
+        makeToolbar()
+        
+        
+        // ページ移動のボタンを無効化
+        backPageButton.isEnabled = false
+        nextPageButton.isEnabled = false
+    }
+}
+
+
+// MARK: -UIToolbar
+extension KeywordSearchViewController{
+    // toolBar関連のメソッド
+    
+    // ツールバーの生成
+    func makeToolbar(){
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         toolbar.setItems([spacelItem, doneItem], animated: true)
         keywordSearchBar.inputAccessoryView = toolbar
-
-        // ページ移動のボタンを無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
     }
     
-    
-    // toolBar関連のメソッド
     // Doneボタンを押した時の処理
     @objc func done() {
         keywordSearchBar.endEditing(true)
     }
+}
 
-    
-    
-    
-    // tableView関連のメソッド
+
+// MARK: -UITableViewDataSource
+extension KeywordSearchViewController: UITableViewDataSource{
     // tableViewCellの総数を返すdatasourceメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
@@ -133,7 +154,11 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
         // 設定したCellオブジェクトを画面に反映
         return cell
     }
+}
 
+
+// MARK: -UITableViewDelegate
+extension KeywordSearchViewController: UITableViewDelegate{
     // Cellが選択された際に呼び出されるdelegateメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 初期化
@@ -153,11 +178,11 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
             next.selectID = self.selectID
         }
     }
+}
 
-      
-    
-    
-    
+
+// MARK: -API
+extension KeywordSearchViewController{
     // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
     func searchRestaurant(keyword: String){
@@ -228,10 +253,11 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
         // ダウンロード開始
         task.resume()
     }
+}
 
 
-    
-    
+// MARK: -UISearchBarDelegate
+extension KeywordSearchViewController: UISearchBarDelegate{
     // 検索ボタンをクリックした時の処理
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを閉じる
@@ -254,7 +280,11 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
             searchRestaurant(keyword: searchWord)
         }
     }
+}
 
+
+// MARK: -Action
+extension KeywordSearchViewController{
     // 前のページボタンが押された時の処理
     @IBAction func backPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
@@ -292,5 +322,4 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
             searchRestaurant(keyword: searchWord)
         }
     }
-
 }
