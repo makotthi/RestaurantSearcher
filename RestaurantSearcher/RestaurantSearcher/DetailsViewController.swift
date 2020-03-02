@@ -109,20 +109,8 @@ extension DetailsViewController{
     // 取得したデータを画面に表示する
     private func showStoreData(){
         // 店舗画像を表示
-        if let urlStr = storeData?.image_url?.shop_image1 {
-            if let imageURL = URL(string: urlStr){
-                if let imageData = try? Data(contentsOf: imageURL) {
-                    storeImageView1.image = UIImage(data: imageData)
-                }
-            }
-        }
-        if let urlStr = storeData?.image_url?.shop_image2 {
-            if let imageURL = URL(string: urlStr){
-                if let imageData = try? Data(contentsOf: imageURL) {
-                    storeImageView2.image = UIImage(data: imageData)
-                }
-            }
-        }
+        storeImageView1.loadImage(url: storeData?.image_url?.shop_image1)
+        storeImageView2.loadImage(url: storeData?.image_url?.shop_image2)
         
         // 店舗名称を表示
         nameLabel.text = storeData?.name
