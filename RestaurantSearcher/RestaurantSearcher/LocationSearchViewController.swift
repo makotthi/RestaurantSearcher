@@ -7,22 +7,22 @@ import CoreLocation
 class LocationSearchViewController: UIViewController {
     
     // 位置情報を受け取るクラスのインスタンス
-    var myLocationManager:CLLocationManager!
+    private var myLocationManager:CLLocationManager!
     // 検索範囲を入力するPickerViewのインスタンス
-    var rangePickerView: UIPickerView!
-    let pickerItems = ["300m", "500m", "1000m", "2000m", "3000m"]
+    private var rangePickerView: UIPickerView!
+    private let pickerItems = ["300m", "500m", "1000m", "2000m", "3000m"]
     
     // 店の一覧を表示するTableView
-    @IBOutlet weak var storeTableView: UITableView!
+    @IBOutlet private weak var storeTableView: UITableView!
     // 検索範囲を入力、表示するTextField
-    @IBOutlet weak var rangeTextField: UITextField!
+    @IBOutlet private weak var rangeTextField: UITextField!
     // 現在のページ数を表示するLabel
-    @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet private weak var pageLabel: UILabel!
     // ページ移動のボタン
-    @IBOutlet weak var backPageButton: UIButton!
-    @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet private weak var backPageButton: UIButton!
+    @IBOutlet private weak var nextPageButton: UIButton!
     // 再検索ボタン
-    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet private weak var searchButton: UIButton!
     
     
     // 店舗データを格納する配列
@@ -51,23 +51,23 @@ class LocationSearchViewController: UIViewController {
     
     
     // 緯度と経度
-    var latitude: Double?
-    var longitude: Double?
+    private var latitude: Double?
+    private var longitude: Double?
     // 検索範囲
-    var searchRange = "500m"
+    private var searchRange = "500m"
     
     // 受け取ったレストランのデータを格納する配列
-    var restaurantList: [StoreData] = []
+    private var restaurantList: [StoreData] = []
     // 選択したレストランのID
-    var selectID: String?
+    private var selectID: String?
     // 現在表示しているページの番号と全ページの数
-    var currentPage = 1
-    var totalPage = 1
+    private var currentPage = 1
+    private var totalPage = 1
     
     
     
     // 初回の画面遷移した時に呼ばれる
-    override func viewDidLoad() {
+    override internal func viewDidLoad() {
         super.viewDidLoad()
         
         // 初期設定
@@ -82,7 +82,7 @@ class LocationSearchViewController: UIViewController {
 
 // MARK: -InitialSettings
 extension LocationSearchViewController{
-    func initialSetting(){
+    private func initialSetting(){
         // 位置情報を受け取る処理の初期設定
         myLocationManager = CLLocationManager()
         myLocationManager.delegate = self
@@ -127,7 +127,7 @@ extension LocationSearchViewController{
 extension LocationSearchViewController: CLLocationManagerDelegate{
     // locationManager関連のメソッド
     // 位置情報取得成功時に呼ばれます
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             // 緯度と経度を受け取る
             latitude = location.coordinate.latitude
@@ -139,7 +139,7 @@ extension LocationSearchViewController: CLLocationManagerDelegate{
     }
     
     // 位置情報取得失敗時に呼ばれます
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error")
         pageLabel.text = "位置情報の取得に失敗しました"
         searchButton.isEnabled = true
@@ -150,12 +150,12 @@ extension LocationSearchViewController: CLLocationManagerDelegate{
 // MARK: -UIPickerViewDataSource
 extension LocationSearchViewController: UIPickerViewDataSource{
     // PickerViewの列数を設定
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    internal func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     // PickerViewの行数を設定
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    internal func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerItems.count
     }
 }
@@ -164,12 +164,12 @@ extension LocationSearchViewController: UIPickerViewDataSource{
 // MARK: -UIPickerViewDelegate
 extension LocationSearchViewController: UIPickerViewDelegate{
     // PickerViewの要素を設定
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerItems[row]
     }
     
     // PickerViewで選択したものをtextFieldに表示
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         rangeTextField.text = pickerItems[row]
     }
 }
@@ -178,7 +178,7 @@ extension LocationSearchViewController: UIPickerViewDelegate{
 // MARK: -UIToolbar
 extension LocationSearchViewController{
     // toolBarを生成
-    func makeToolBar(){
+    private func makeToolBar(){
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
@@ -188,7 +188,7 @@ extension LocationSearchViewController{
     
     // toolBar関連のメソッド
     // Doneボタンを押した時の処理
-    @objc func done() {
+    @objc private func done() {
         rangeTextField.endEditing(true)
     }
 }
@@ -197,13 +197,13 @@ extension LocationSearchViewController{
 // MARK: -UITableViewDataSource
 extension LocationSearchViewController: UITableViewDataSource{
     // tableViewCellの総数を返すdatasourceメソッド
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
         return restaurantList.count
     }
     
     // tableViewCellに値をセットするdatasourceメソッド
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 表示するCellオブジェクトを取得
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath)
         // 店舗名称を設定
@@ -245,7 +245,7 @@ extension LocationSearchViewController: UITableViewDataSource{
 // MARK: -UITableViewDelegate
 extension LocationSearchViewController: UITableViewDelegate{
     // Cellが選択された際に呼び出されるdelegateメソッド
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 初期化
         selectID = nil
         // ハイライト解除
@@ -257,7 +257,7 @@ extension LocationSearchViewController: UITableViewDelegate{
     }
     
     // 遷移先に値を渡す処理
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    internal override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailsFromLocation" {
             let next = segue.destination as! DetailsViewController
             next.selectID = self.selectID
@@ -270,7 +270,7 @@ extension LocationSearchViewController: UITableViewDelegate{
 extension LocationSearchViewController{
     // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
-    func searchRestaurant(rangeWord: String){
+    private func searchRestaurant(rangeWord: String){
         var range = 2
         // rangeTextFieldの値をリクエストパラメータの値に直す
         switch rangeWord {
@@ -359,7 +359,7 @@ extension LocationSearchViewController{
 // MARK: -Action
 extension LocationSearchViewController{
     // 再検索ボタンが押された時の処理
-    @IBAction func searchButtonAction(_ sender: Any) {
+    @IBAction private func searchButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -381,7 +381,7 @@ extension LocationSearchViewController{
     }
     
     // 前のページボタンが押された時の処理
-    @IBAction func backPageButtonAction(_ sender: Any) {
+    @IBAction private func backPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -399,7 +399,7 @@ extension LocationSearchViewController{
     }
     
     // 次のページボタンが押された時の処理
-    @IBAction func nextPageButtonAction(_ sender: Any) {
+    @IBAction private func nextPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消す
         restaurantList.removeAll()
         storeTableView.reloadData()
