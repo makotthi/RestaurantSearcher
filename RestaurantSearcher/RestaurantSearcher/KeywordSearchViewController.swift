@@ -2,7 +2,7 @@
 
 import UIKit
 
-class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // 店の一覧を表示するTableView
     @IBOutlet weak var storeTableView: UITableView!
@@ -232,6 +232,72 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
 
     
     
+//    // 検索ボタンをクリックした時の処理
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        // キーボードを閉じる
+//        view.endEditing(true)
+//
+//        // tableViewのデータを一旦消去
+//        restaurantList.removeAll()
+//        storeTableView.reloadData()
+//        // ボタンを無効化
+//        backPageButton.isEnabled = false
+//        nextPageButton.isEnabled = false
+//        // 現在の状態を表示
+//        pageLabel.text = "通信中"
+//
+//        // 現在のページ位置を1に
+//        currentPage = 1
+//
+//        if let searchWord = keywordSearchBar.text {
+//            // 検索をする
+//            searchRestaurant(keyword: searchWord)
+//        }
+//    }
+
+//    // 前のページボタンが押された時の処理
+//    @IBAction func backPageButtonAction(_ sender: Any) {
+//        // tableViewのデータを一旦消去
+//        restaurantList.removeAll()
+//        storeTableView.reloadData()
+//        // ボタンを無効化
+//        backPageButton.isEnabled = false
+//        nextPageButton.isEnabled = false
+//        // 現在の状態を表示
+//        pageLabel.text = "通信中"
+//        keywordSearchBar.text = searchingKeyword
+//
+//        // 前のページの検索結果を表示
+//        currentPage -= 1
+//        if let searchWord = searchingKeyword {
+//            searchRestaurant(keyword: searchWord)
+//        }
+//    }
+//
+//    // 次のページボタンが押された時の処理
+//    @IBAction func nextPageButtonAction(_ sender: Any) {
+//        // tableViewのデータを一旦消去
+//        restaurantList.removeAll()
+//        storeTableView.reloadData()
+//        // ボタンを無効化
+//        backPageButton.isEnabled = false
+//        nextPageButton.isEnabled = false
+//        // 現在の状態を表示
+//        pageLabel.text = "通信中"
+//        keywordSearchBar.text = searchingKeyword
+//
+//        // 前のページの検索結果を表示
+//        currentPage += 1
+//        if let searchWord = searchingKeyword {
+//            searchRestaurant(keyword: searchWord)
+//        }
+//    }
+
+}
+
+
+// MARK: -UISearchBarDelegate
+extension KeywordSearchViewController: UISearchBarDelegate{
     // 検索ボタンをクリックした時の処理
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを閉じる
@@ -254,7 +320,11 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
             searchRestaurant(keyword: searchWord)
         }
     }
+}
 
+
+// MARK: -Action
+extension KeywordSearchViewController{
     // 前のページボタンが押された時の処理
     @IBAction func backPageButtonAction(_ sender: Any) {
         // tableViewのデータを一旦消去
@@ -292,5 +362,4 @@ class KeywordSearchViewController: UIViewController, UITableViewDataSource, UITa
             searchRestaurant(keyword: searchWord)
         }
     }
-
 }

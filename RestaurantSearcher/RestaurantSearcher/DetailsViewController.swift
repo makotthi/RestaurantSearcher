@@ -3,7 +3,8 @@
 import UIKit
 import SafariServices
 
-class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
+// MARK: -vars and initialize
+class DetailsViewController: UIViewController {
     
     // 店の画像を表示するimageView
     @IBOutlet weak var storeImageView1: UIImageView!
@@ -22,6 +23,23 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
     // 店の詳細データ
     var storeData: StoreData?
     
+    
+    // 画面遷移をした時に呼ばれる
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        
+        // レストランのデータを受け取る
+        receiveRestaurantData()
+    }
+    
+
+}
+
+
+// MARK: -通信
+extension DetailsViewController{
     // 店舗データを格納する配列
     struct StoreDataArray: Codable{
         let rest: [StoreData]?
@@ -41,18 +59,6 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
         let shop_image1: String?
         let shop_image2: String?
     }
-    
-    
-    // 画面遷移をした時に呼ばれる
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        // レストランのデータを受け取る
-        receiveRestaurantData()
-    }
-    
     
     
     // API通信を行うメソッド
@@ -96,9 +102,11 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
         }
         
     }
-    
+}
 
-    
+
+// MARK: -UI
+extension DetailsViewController{
     // 取得したデータを画面に表示する
     func showStoreData(){
         // 店舗画像を表示
@@ -137,9 +145,11 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
         }
         opentimeLabel.sizeToFit()
     }
-    
-    
-    
+}
+
+
+// MARK: -Action
+extension DetailsViewController{
     // もっと詳しくボタンが押された時の処理
     // レストランのWebページを表示する
     @IBAction func showWebPageButtonAction(_ sender: Any) {
@@ -150,6 +160,15 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
         guard let url = URL(string: urlStr) else {
             return
         }
+        openSafariView(url: url)
+    }
+}
+
+
+// MARK: -SFSafariViewControllerDelegate
+extension DetailsViewController: SFSafariViewControllerDelegate{
+    // SFSafariViewを開く
+    func openSafariView(url: URL){
         let safariViewController = SFSafariViewController(url: url)
         
         // delegateの通知先を設定
@@ -164,6 +183,4 @@ class DetailsViewController: UIViewController, SFSafariViewControllerDelegate {
         // safariViewを閉じる
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
