@@ -16,33 +16,7 @@ class KeywordSearchViewController: UIViewController {
     @IBOutlet private weak var backPageButton: UIButton!
     @IBOutlet private weak var nextPageButton: UIButton!
    
-       
-       
-    // 店舗データを格納する配列
-    struct StoreDataArray: Codable{
-       let total_hit_count: Int?
-       let rest: [StoreData]?
-    }
-    // 店舗のデータを格納する
-    struct StoreData: Codable{
-       let id: String?
-       let name: String?
-       let image_url: StoreImageData?
-       let access: StoreAccessData?
-    }
-    // 店舗画像のデータを格納する
-    struct StoreImageData: Codable{
-       let shop_image1: String?
-    }
-    // 店舗アクセスのデータを格納する
-    struct StoreAccessData: Codable{
-       let line: String?
-       let station: String?
-       let station_exit: String?
-       let walk: String?
-    }
-
-
+  
     // 受け取ったレストランのデータを格納する配列
     private var restaurantList: [StoreData] = []
     // 選択したレストランのID
