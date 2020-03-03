@@ -142,7 +142,7 @@ extension LocationSearchViewController: CLLocationManagerDelegate{
     // 位置情報取得失敗時に呼ばれます
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error")
-        pageLabel.text = "位置情報の取得に失敗しました"
+        pagingView.setPageLabelText(text: "位置情報の取得に失敗しました")
         searchButton.isEnabled = true
     }
 }
@@ -301,7 +301,7 @@ extension LocationSearchViewController{
                             self.restaurantList.append(item)
                         }
                     } else {
-                        self.pageLabel.text = "検索結果なし"
+                        self.pagingView.setPageLabelText(text: "検索結果なし")
                     }
                     
                     // TableViewを更新
@@ -309,7 +309,7 @@ extension LocationSearchViewController{
                     // pageLabelを更新
                     if let total = json.total_hit_count {
                         self.totalPage = Int(ceil(Double(total) / 100.0))
-                        self.pageLabel.text = "\(self.currentPage) /\(self.totalPage) ページ"
+                        self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
                         if self.currentPage != 1 {
                             self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                         }
@@ -324,7 +324,7 @@ extension LocationSearchViewController{
                     
                 } catch {
                     print("エラーが発生しました",error.localizedDescription)
-                    self.pageLabel.text = "通信に失敗しました"
+                    self.pagingView.setPageLabelText(text: "通信に失敗しました")
                     self.searchButton.isEnabled = true
                 }
             })
@@ -348,7 +348,7 @@ extension LocationSearchViewController{
         pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         
         // 検索する範囲をsearchRangeに代入
         if let range = rangeTextField.text {
@@ -370,7 +370,7 @@ extension LocationSearchViewController{
         pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         rangeTextField.text = searchRange
         
         // 前のページの検索結果を表示
@@ -388,7 +388,7 @@ extension LocationSearchViewController{
         pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         rangeTextField.text = searchRange
         
         // 次のページの検索結果を表示
