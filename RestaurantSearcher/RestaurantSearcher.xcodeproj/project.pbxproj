@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		08D95835C95144F32D2C75FE /* Pods_RestaurantSearcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CD30683BA5C0A27DE61B85 /* Pods_RestaurantSearcher.framework */; };
+		0E4DFBC4240CFEA30088780D /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4DFBC3240CFEA30088780D /* UIImageViewExtension.swift */; };
 		0E79F48723B0C11100C7C171 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79F48623B0C11100C7C171 /* AppDelegate.swift */; };
 		0E79F48923B0C11100C7C171 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79F48823B0C11100C7C171 /* SceneDelegate.swift */; };
 		0E79F48B23B0C11100C7C171 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79F48A23B0C11100C7C171 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E4DFBC3240CFEA30088780D /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		0E79F48323B0C11100C7C171 /* RestaurantSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantSearcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E79F48623B0C11100C7C171 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E79F48823B0C11100C7C171 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +50,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E4DFBC2240CFE780088780D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0E4DFBC3240CFEA30088780D /* UIImageViewExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		0E79F47A23B0C11100C7C171 = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +79,7 @@
 		0E79F48523B0C11100C7C171 /* RestaurantSearcher */ = {
 			isa = PBXGroup;
 			children = (
+				0E4DFBC2240CFE780088780D /* Extension */,
 				0E79F48623B0C11100C7C171 /* AppDelegate.swift */,
 				0E79F48823B0C11100C7C171 /* SceneDelegate.swift */,
 				0E79F48A23B0C11100C7C171 /* ViewController.swift */,
@@ -97,7 +108,6 @@
 				2A53424B1DB3BD94C86F76FB /* Pods-RestaurantSearcher.debug.xcconfig */,
 				1342E717F8BC48EE864B13DE /* Pods-RestaurantSearcher.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -217,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E79F48B23B0C11100C7C171 /* ViewController.swift in Sources */,
+				0E4DFBC4240CFEA30088780D /* UIImageViewExtension.swift in Sources */,
 				0E79F48723B0C11100C7C171 /* AppDelegate.swift in Sources */,
 				0E79F48923B0C11100C7C171 /* SceneDelegate.swift in Sources */,
 				0E79F49B23B1EF5E00C7C171 /* LocationSearchViewController.swift in Sources */,
