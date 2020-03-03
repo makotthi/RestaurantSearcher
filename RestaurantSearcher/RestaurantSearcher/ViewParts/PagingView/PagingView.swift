@@ -14,4 +14,24 @@ class PagingView: UIView {
     @IBAction private func nextPageButtonTapped(_ sender: Any) {
     }
     
+    
+    
+    // MARK: -Setter
+    
+    // Buttonの有効状態のセッター
+    // backPageButton
+    func setBackPageButtonEnabled(isEnabled: Bool){
+        backPageButton.isEnabled = isEnabled
+    }
+    // nextPageButton
+    func setNextPageButtonEnabled(isEnabled: Bool){
+        nextPageButton.isEnabled = isEnabled
+    }
+    
+    // pageLabelのテキストをセット
+    func setPageLabel(text: String){
+        pageLabel.text = text
+    }
+    
+    
 }
