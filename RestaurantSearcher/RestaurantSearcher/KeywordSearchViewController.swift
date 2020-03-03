@@ -64,6 +64,10 @@ extension KeywordSearchViewController{
         // ページ移動のボタンを無効化
         backPageButton.isEnabled = false
         nextPageButton.isEnabled = false
+        
+        
+        // 画面遷移時にキーボードを表示
+        keywordSearchBar.becomeFirstResponder()
     }
 }
 
