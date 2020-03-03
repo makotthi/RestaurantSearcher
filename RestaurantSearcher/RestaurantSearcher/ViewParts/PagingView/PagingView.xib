@@ -19,6 +19,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmK-0N-u1x">
                             <rect key="frame" x="0.0" y="0.0" width="138" height="107"/>
                             <state key="normal" title="前のページ"/>
+                            <connections>
+                                <action selector="backPageButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="2kC-tk-pcT"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通信中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTT-bt-IEB">
                             <rect key="frame" x="138" y="0.0" width="138" height="107"/>
@@ -29,6 +32,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvW-DI-5K2">
                             <rect key="frame" x="276" y="0.0" width="138" height="107"/>
                             <state key="normal" title="次のページ"/>
+                            <connections>
+                                <action selector="nextPageButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Iag-Rg-Kdh"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>
@@ -42,6 +48,11 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="backPageButton" destination="zmK-0N-u1x" id="Dle-WG-INY"/>
+                <outlet property="nextPageButton" destination="mvW-DI-5K2" id="lHO-Lm-DAR"/>
+                <outlet property="pageLabel" destination="NTT-bt-IEB" id="lGm-2r-2Ly"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="335.15625"/>
         </view>
     </objects>
