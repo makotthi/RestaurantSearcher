@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zoY-GZ-079">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zoY-GZ-079">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -310,55 +310,32 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="STe-lR-BgE">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5N-iA-Esg">
                                 <rect key="frame" x="0.0" y="802" width="414" height="60"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ShH-CM-eRt">
-                                        <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
-                                        <state key="normal" title="前のページ"/>
-                                        <connections>
-                                            <action selector="backPageButtonAction:" destination="5cw-i3-qfO" eventType="touchUpInside" id="TYN-MH-ZHR"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通信中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3g-Pb-ZR8">
-                                        <rect key="frame" x="138" y="0.0" width="138" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAB-8Q-ylj">
-                                        <rect key="frame" x="276" y="0.0" width="138" height="60"/>
-                                        <state key="normal" title="次のページ"/>
-                                        <connections>
-                                            <action selector="nextPageButtonAction:" destination="5cw-i3-qfO" eventType="touchUpInside" id="JWQ-12-DvK"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Nbv-8h-rEh"/>
+                                    <constraint firstAttribute="height" constant="60" id="Ikj-nX-78d"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="q5N-iA-Esg" secondAttribute="trailing" id="4Lp-Zz-OzU"/>
                             <constraint firstItem="AcM-S8-pBK" firstAttribute="top" secondItem="Utx-9B-vOm" secondAttribute="top" id="BSG-Bz-eaf"/>
                             <constraint firstItem="AcM-S8-pBK" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="LBS-qa-SE8"/>
-                            <constraint firstItem="STe-lR-BgE" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="M07-Tf-kjz"/>
-                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="STe-lR-BgE" secondAttribute="trailing" id="hQn-Kg-aNo"/>
+                            <constraint firstItem="q5N-iA-Esg" firstAttribute="top" secondItem="hp2-fY-yrT" secondAttribute="bottom" id="V3N-U1-rQb"/>
+                            <constraint firstItem="Utx-9B-vOm" firstAttribute="bottom" secondItem="q5N-iA-Esg" secondAttribute="bottom" id="VSB-Yg-Gd2"/>
                             <constraint firstItem="hp2-fY-yrT" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="ixW-I6-uY4"/>
-                            <constraint firstItem="STe-lR-BgE" firstAttribute="top" secondItem="hp2-fY-yrT" secondAttribute="bottom" id="jGd-pN-yhq"/>
                             <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="hp2-fY-yrT" secondAttribute="trailing" id="mhh-cS-q6X"/>
                             <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="AcM-S8-pBK" secondAttribute="trailing" id="s0d-0q-bJZ"/>
-                            <constraint firstItem="Utx-9B-vOm" firstAttribute="bottom" secondItem="STe-lR-BgE" secondAttribute="bottom" id="vcg-xL-jya"/>
+                            <constraint firstItem="q5N-iA-Esg" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="u7L-sY-MK2"/>
                             <constraint firstItem="hp2-fY-yrT" firstAttribute="top" secondItem="AcM-S8-pBK" secondAttribute="bottom" constant="8" symbolic="YES" id="xfn-W3-cnt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Utx-9B-vOm"/>
                     </view>
                     <navigationItem key="navigationItem" id="nmu-Gi-QxO"/>
                     <connections>
-                        <outlet property="backPageButton" destination="ShH-CM-eRt" id="jcB-C6-E6m"/>
-                        <outlet property="nextPageButton" destination="aAB-8Q-ylj" id="gDF-HH-QeC"/>
-                        <outlet property="pageLabel" destination="p3g-Pb-ZR8" id="lqb-Fp-TOk"/>
+                        <outlet property="pagingViewContainer" destination="q5N-iA-Esg" id="fw9-sJ-kn9"/>
                         <outlet property="rangeTextField" destination="ZXS-eY-9Ov" id="HG8-Nu-sao"/>
                         <outlet property="searchButton" destination="JOr-rL-8sQ" id="0tU-z7-Z6V"/>
                         <outlet property="storeTableView" destination="hp2-fY-yrT" id="qCy-LF-x35"/>
@@ -389,6 +366,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mZJ-ZM-lEd"/>
+        <segue reference="9zo-n4-GdT"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PagingView" customModule="RestaurantSearcher" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="151"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="uYu-YY-EJM">
+                    <rect key="frame" x="0.0" y="44" width="414" height="107"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmK-0N-u1x">
+                            <rect key="frame" x="0.0" y="0.0" width="138" height="107"/>
+                            <state key="normal" title="前のページ"/>
+                            <connections>
+                                <action selector="backPageButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="2kC-tk-pcT"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通信中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTT-bt-IEB">
+                            <rect key="frame" x="138" y="0.0" width="138" height="107"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvW-DI-5K2">
+                            <rect key="frame" x="276" y="0.0" width="138" height="107"/>
+                            <state key="normal" title="次のページ"/>
+                            <connections>
+                                <action selector="nextPageButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Iag-Rg-Kdh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uYu-YY-EJM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="5o8-1B-BiK"/>
+                <constraint firstItem="uYu-YY-EJM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="kdC-dz-fBF"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uYu-YY-EJM" secondAttribute="trailing" id="ucV-3s-Fly"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="uYu-YY-EJM" secondAttribute="bottom" id="zhZ-rx-xgp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="backPageButton" destination="zmK-0N-u1x" id="Dle-WG-INY"/>
+                <outlet property="nextPageButton" destination="mvW-DI-5K2" id="lHO-Lm-DAR"/>
+                <outlet property="pageLabel" destination="NTT-bt-IEB" id="lGm-2r-2Ly"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="335.15625"/>
+        </view>
+    </objects>
+</document>

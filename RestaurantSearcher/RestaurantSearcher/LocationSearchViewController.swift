@@ -16,13 +16,16 @@ class LocationSearchViewController: UIViewController {
     @IBOutlet private weak var storeTableView: UITableView!
     // 検索範囲を入力、表示するTextField
     @IBOutlet private weak var rangeTextField: UITextField!
-    // 現在のページ数を表示するLabel
-    @IBOutlet private weak var pageLabel: UILabel!
-    // ページ移動のボタン
-    @IBOutlet private weak var backPageButton: UIButton!
-    @IBOutlet private weak var nextPageButton: UIButton!
+
     // 再検索ボタン
     @IBOutlet private weak var searchButton: UIButton!
+    
+    // pagingView
+    @IBOutlet private weak var pagingViewContainer: UIView!
+    
+    
+    // pagingViewクラスのインスタンスを生成
+    private let pagingView = PagingView.fromXib()
     
     
     // 緯度と経度
@@ -95,9 +98,32 @@ extension LocationSearchViewController{
         rangeTextField.text = pickerItems[1]
         
         // ページ移動のボタンなどを無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
+
+        
+        // 画面に表示する
+        pagingViewContainer.addSubview(pagingView)
+        
+        // AutoLayoutの誓約をつける
+        // 上下左右の誓約を追加
+        NSLayoutConstraint.activate([
+            pagingView.leadingAnchor.constraint(equalTo: pagingViewContainer.leadingAnchor), //言語の初めの方角
+            pagingView.trailingAnchor.constraint(equalTo: pagingViewContainer.trailingAnchor), //言語の終わり
+            pagingView.topAnchor.constraint(equalTo: pagingViewContainer.topAnchor), //上
+            pagingView.bottomAnchor.constraint(equalTo: pagingViewContainer.bottomAnchor) //下
+        ])
+        // AutoresizingMaskを無効にする
+        pagingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // クロージャの設定
+        pagingView.onTapBackPageButton = { [weak self] in
+            self?.backPageButtonAction()
+        }
+        pagingView.onTapNextPageButton = { [weak self] in
+            self?.nextPageButtonAction()
+        }
     }
 }
 
@@ -120,7 +146,7 @@ extension LocationSearchViewController: CLLocationManagerDelegate{
     // 位置情報取得失敗時に呼ばれます
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("error")
-        pageLabel.text = "位置情報の取得に失敗しました"
+        pagingView.setPageLabelText(text: "位置情報の取得に失敗しました")
         searchButton.isEnabled = true
     }
 }
@@ -279,7 +305,7 @@ extension LocationSearchViewController{
                             self.restaurantList.append(item)
                         }
                     } else {
-                        self.pageLabel.text = "検索結果なし"
+                        self.pagingView.setPageLabelText(text: "検索結果なし")
                     }
                     
                     // TableViewを更新
@@ -287,12 +313,12 @@ extension LocationSearchViewController{
                     // pageLabelを更新
                     if let total = json.total_hit_count {
                         self.totalPage = Int(ceil(Double(total) / 100.0))
-                        self.pageLabel.text = "\(self.currentPage) /\(self.totalPage) ページ"
+                        self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
                         if self.currentPage != 1 {
-                            self.backPageButton.isEnabled = true
+                            self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                         }
                         if self.currentPage != self.totalPage {
-                            self.nextPageButton.isEnabled = true
+                            self.pagingView.setNextPageButtonEnabled(isEnabled: true)
                         }
                     }
                     // textFieldのテキストを更新
@@ -302,7 +328,7 @@ extension LocationSearchViewController{
                     
                 } catch {
                     print("エラーが発生しました",error.localizedDescription)
-                    self.pageLabel.text = "通信に失敗しました"
+                    self.pagingView.setPageLabelText(text: "通信に失敗しました")
                     self.searchButton.isEnabled = true
                 }
             })
@@ -322,11 +348,11 @@ extension LocationSearchViewController{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンの無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         
         // 検索する範囲をsearchRangeに代入
         if let range = rangeTextField.text {
@@ -339,16 +365,16 @@ extension LocationSearchViewController{
     }
     
     // 前のページボタンが押された時の処理
-    @IBAction private func backPageButtonAction(_ sender: Any) {
+    private func backPageButtonAction() {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンの無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         rangeTextField.text = searchRange
         
         // 前のページの検索結果を表示
@@ -357,16 +383,16 @@ extension LocationSearchViewController{
     }
     
     // 次のページボタンが押された時の処理
-    @IBAction private func nextPageButtonAction(_ sender: Any) {
+    private func nextPageButtonAction() {
         // tableViewのデータを一旦消す
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンの無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         rangeTextField.text = searchRange
         
         // 次のページの検索結果を表示
