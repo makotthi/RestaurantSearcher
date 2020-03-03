@@ -103,7 +103,7 @@ extension LocationSearchViewController{
         
         // ページ移動のボタンなどを無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
 
         
@@ -314,7 +314,7 @@ extension LocationSearchViewController{
                             self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                         }
                         if self.currentPage != self.totalPage {
-                            self.nextPageButton.isEnabled = true
+                            self.pagingView.setNextPageButtonEnabled(isEnabled: true)
                         }
                     }
                     // textFieldのテキストを更新
@@ -345,7 +345,7 @@ extension LocationSearchViewController{
         storeTableView.reloadData()
         // ボタンの無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
         pageLabel.text = "通信中"
@@ -367,7 +367,7 @@ extension LocationSearchViewController{
         storeTableView.reloadData()
         // ボタンの無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
         pageLabel.text = "通信中"
@@ -385,7 +385,7 @@ extension LocationSearchViewController{
         storeTableView.reloadData()
         // ボタンの無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         searchButton.isEnabled = false
         // 現在の状態を表示
         pageLabel.text = "通信中"
