@@ -7,11 +7,20 @@ class PagingView: UIView {
     @IBOutlet private weak var nextPageButton: UIButton!
     @IBOutlet private weak var pageLabel: UILabel!
     
-   
+    
+    // MARK: -Closure
+    // クロージャを定義
+    var onTapBackPageButton: (() -> Void)?
+    var onTapNextPageButton: (() -> Void)?
+    
+    
+    // MARK: -Action
     @IBAction private func backPageButtonTapped(_ sender: Any) {
+        onTapBackPageButton?()
     }
     
     @IBAction private func nextPageButtonTapped(_ sender: Any) {
+        onTapNextPageButton?()
     }
     
     
