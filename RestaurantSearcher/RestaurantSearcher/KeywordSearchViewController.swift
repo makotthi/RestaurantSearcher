@@ -15,6 +15,10 @@ class KeywordSearchViewController: UIViewController {
     // ページ移動のボタン
     @IBOutlet private weak var backPageButton: UIButton!
     @IBOutlet private weak var nextPageButton: UIButton!
+    
+    // pagingView
+    @IBOutlet private weak var pagingViewContainer: PagingView!
+    
    
   
     // 受け取ったレストランのデータを格納する配列
