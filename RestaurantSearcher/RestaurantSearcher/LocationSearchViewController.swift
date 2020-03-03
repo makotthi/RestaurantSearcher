@@ -120,6 +120,14 @@ extension LocationSearchViewController{
         ])
         // AutoresizingMaskを無効にする
         pagingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // クロージャの設定
+        pagingView.onTapBackPageButton = { [weak self] in
+            self?.backPageButtonAction()
+        }
+        pagingView.onTapNextPageButton = { [weak self] in
+            self?.nextPageButtonAction()
+        }
     }
 }
 
