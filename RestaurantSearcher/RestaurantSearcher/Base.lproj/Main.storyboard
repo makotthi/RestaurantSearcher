@@ -100,37 +100,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="S0x-PG-Ece">
-                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cn0-Jw-fm0">
-                                        <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
-                                        <state key="normal" title="前のページ"/>
-                                        <connections>
-                                            <action selector="backPageButtonAction:" destination="WBg-NQ-mAh" eventType="touchUpInside" id="Eoo-dn-XhE"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNu-kc-h20">
-                                        <rect key="frame" x="138" y="0.0" width="138" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YuZ-mn-Ue5">
-                                        <rect key="frame" x="276" y="0.0" width="138" height="60"/>
-                                        <state key="normal" title="次のページ"/>
-                                        <connections>
-                                            <action selector="nextPageButtonAction:" destination="WBg-NQ-mAh" eventType="touchUpInside" id="X5s-zU-Xyu"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="D48-tx-oew"/>
-                                </constraints>
-                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHR-iI-NxU" customClass="PagingView" customModule="RestaurantSearcher" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="810" width="414" height="66"/>
+                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Bgo-oZ-LaI"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -138,14 +113,10 @@
                             <constraint firstItem="PB1-Vf-xOj" firstAttribute="top" secondItem="yip-wD-ifn" secondAttribute="top" id="2Yy-tw-LP4"/>
                             <constraint firstItem="YHR-iI-NxU" firstAttribute="leading" secondItem="yip-wD-ifn" secondAttribute="leading" id="2qJ-5k-fQx"/>
                             <constraint firstItem="PB1-Vf-xOj" firstAttribute="leading" secondItem="yip-wD-ifn" secondAttribute="leading" id="F99-iq-Inl"/>
-                            <constraint firstItem="S0x-PG-Ece" firstAttribute="top" secondItem="k3r-bT-Ekh" secondAttribute="bottom" id="For-Ho-ICT"/>
                             <constraint firstItem="yip-wD-ifn" firstAttribute="trailing" secondItem="k3r-bT-Ekh" secondAttribute="trailing" id="Hb8-5e-ed1"/>
-                            <constraint firstAttribute="bottom" secondItem="YHR-iI-NxU" secondAttribute="bottom" constant="20" symbolic="YES" id="KtS-Ga-hU5"/>
-                            <constraint firstItem="YHR-iI-NxU" firstAttribute="top" secondItem="k3r-bT-Ekh" secondAttribute="bottom" constant="8" symbolic="YES" id="MvX-oh-fII"/>
-                            <constraint firstItem="S0x-PG-Ece" firstAttribute="leading" secondItem="yip-wD-ifn" secondAttribute="leading" id="NwI-Rn-tgk"/>
+                            <constraint firstItem="yip-wD-ifn" firstAttribute="bottom" secondItem="YHR-iI-NxU" secondAttribute="bottom" id="KtS-Ga-hU5"/>
+                            <constraint firstItem="YHR-iI-NxU" firstAttribute="top" secondItem="k3r-bT-Ekh" secondAttribute="bottom" id="MvX-oh-fII"/>
                             <constraint firstItem="YHR-iI-NxU" firstAttribute="trailing" secondItem="yip-wD-ifn" secondAttribute="trailing" id="R51-wA-L6m"/>
-                            <constraint firstItem="yip-wD-ifn" firstAttribute="trailing" secondItem="S0x-PG-Ece" secondAttribute="trailing" id="c1R-n7-DIw"/>
-                            <constraint firstItem="yip-wD-ifn" firstAttribute="bottom" secondItem="S0x-PG-Ece" secondAttribute="bottom" id="eRo-QR-zA6"/>
                             <constraint firstItem="k3r-bT-Ekh" firstAttribute="leading" secondItem="yip-wD-ifn" secondAttribute="leading" id="hfk-Bh-bcv"/>
                             <constraint firstAttribute="trailing" secondItem="PB1-Vf-xOj" secondAttribute="trailing" id="mPj-CT-k48"/>
                             <constraint firstItem="k3r-bT-Ekh" firstAttribute="top" secondItem="PB1-Vf-xOj" secondAttribute="bottom" id="udt-Q9-LyK"/>
@@ -154,10 +125,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Wum-ur-3v0"/>
                     <connections>
-                        <outlet property="backPageButton" destination="cn0-Jw-fm0" id="TeB-H4-poe"/>
                         <outlet property="keywordSearchBar" destination="PB1-Vf-xOj" id="lOX-yO-7lm"/>
-                        <outlet property="nextPageButton" destination="YuZ-mn-Ue5" id="ZZp-jh-ado"/>
-                        <outlet property="pageLabel" destination="kNu-kc-h20" id="nHT-gR-3Xf"/>
                         <outlet property="pagingViewContainer" destination="YHR-iI-NxU" id="13m-6g-0pL"/>
                         <outlet property="storeTableView" destination="k3r-bT-Ekh" id="4zP-he-gkg"/>
                         <segue destination="Lw5-f2-ZxC" kind="show" identifier="detailsFromKeyword" id="mZJ-ZM-lEd"/>
