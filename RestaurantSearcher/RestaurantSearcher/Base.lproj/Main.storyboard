@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zoY-GZ-079">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zoY-GZ-079">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -338,17 +338,25 @@
                                     <constraint firstAttribute="height" constant="60" id="Nbv-8h-rEh"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5N-iA-Esg">
+                                <rect key="frame" x="0.0" y="802" width="414" height="94"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="q5N-iA-Esg" secondAttribute="trailing" id="4Lp-Zz-OzU"/>
                             <constraint firstItem="AcM-S8-pBK" firstAttribute="top" secondItem="Utx-9B-vOm" secondAttribute="top" id="BSG-Bz-eaf"/>
                             <constraint firstItem="AcM-S8-pBK" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="LBS-qa-SE8"/>
                             <constraint firstItem="STe-lR-BgE" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="M07-Tf-kjz"/>
+                            <constraint firstItem="q5N-iA-Esg" firstAttribute="top" secondItem="hp2-fY-yrT" secondAttribute="bottom" id="V3N-U1-rQb"/>
+                            <constraint firstAttribute="bottom" secondItem="q5N-iA-Esg" secondAttribute="bottom" id="VSB-Yg-Gd2"/>
                             <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="STe-lR-BgE" secondAttribute="trailing" id="hQn-Kg-aNo"/>
                             <constraint firstItem="hp2-fY-yrT" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="ixW-I6-uY4"/>
                             <constraint firstItem="STe-lR-BgE" firstAttribute="top" secondItem="hp2-fY-yrT" secondAttribute="bottom" id="jGd-pN-yhq"/>
                             <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="hp2-fY-yrT" secondAttribute="trailing" id="mhh-cS-q6X"/>
                             <constraint firstItem="Utx-9B-vOm" firstAttribute="trailing" secondItem="AcM-S8-pBK" secondAttribute="trailing" id="s0d-0q-bJZ"/>
+                            <constraint firstItem="q5N-iA-Esg" firstAttribute="leading" secondItem="Utx-9B-vOm" secondAttribute="leading" id="u7L-sY-MK2"/>
                             <constraint firstItem="Utx-9B-vOm" firstAttribute="bottom" secondItem="STe-lR-BgE" secondAttribute="bottom" id="vcg-xL-jya"/>
                             <constraint firstItem="hp2-fY-yrT" firstAttribute="top" secondItem="AcM-S8-pBK" secondAttribute="bottom" constant="8" symbolic="YES" id="xfn-W3-cnt"/>
                         </constraints>
@@ -359,6 +367,7 @@
                         <outlet property="backPageButton" destination="ShH-CM-eRt" id="jcB-C6-E6m"/>
                         <outlet property="nextPageButton" destination="aAB-8Q-ylj" id="gDF-HH-QeC"/>
                         <outlet property="pageLabel" destination="p3g-Pb-ZR8" id="lqb-Fp-TOk"/>
+                        <outlet property="pagingViewContainer" destination="q5N-iA-Esg" id="fw9-sJ-kn9"/>
                         <outlet property="rangeTextField" destination="ZXS-eY-9Ov" id="HG8-Nu-sao"/>
                         <outlet property="searchButton" destination="JOr-rL-8sQ" id="0tU-z7-Z6V"/>
                         <outlet property="storeTableView" destination="hp2-fY-yrT" id="qCy-LF-x35"/>
@@ -389,6 +398,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mZJ-ZM-lEd"/>
+        <segue reference="9zo-n4-GdT"/>
     </inferredMetricsTieBreakers>
 </document>

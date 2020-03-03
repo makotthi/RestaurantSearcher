@@ -24,6 +24,8 @@ class LocationSearchViewController: UIViewController {
     // 再検索ボタン
     @IBOutlet private weak var searchButton: UIButton!
     
+    // pagingView
+    @IBOutlet weak var pagingViewContainer: UIView!
     
     // 緯度と経度
     private var latitude: Double?
