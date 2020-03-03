@@ -68,7 +68,7 @@ extension KeywordSearchViewController{
         
         
         // ページ移動のボタンを無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         
         
@@ -222,7 +222,7 @@ extension KeywordSearchViewController{
                     self.totalPage = Int(ceil(Double(total) / 100.0))
                     self.pageLabel.text = "\(self.currentPage) /\(self.totalPage) ページ"
                     if self.currentPage != 1 {
-                        self.backPageButton.isEnabled = true
+                        self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                     }
                     if self.currentPage != self.totalPage {
                         self.nextPageButton.isEnabled = true
@@ -253,7 +253,7 @@ extension KeywordSearchViewController: UISearchBarDelegate{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンを無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         // 現在の状態を表示
         pageLabel.text = "通信中"
@@ -277,7 +277,7 @@ extension KeywordSearchViewController{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンを無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         // 現在の状態を表示
         pageLabel.text = "通信中"
@@ -296,7 +296,7 @@ extension KeywordSearchViewController{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンを無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         // 現在の状態を表示
         pageLabel.text = "通信中"
