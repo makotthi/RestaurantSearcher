@@ -16,11 +16,7 @@ class LocationSearchViewController: UIViewController {
     @IBOutlet private weak var storeTableView: UITableView!
     // 検索範囲を入力、表示するTextField
     @IBOutlet private weak var rangeTextField: UITextField!
-    // 現在のページ数を表示するLabel
-    @IBOutlet private weak var pageLabel: UILabel!
-    // ページ移動のボタン
-    @IBOutlet private weak var backPageButton: UIButton!
-    @IBOutlet private weak var nextPageButton: UIButton!
+
     // 再検索ボタン
     @IBOutlet private weak var searchButton: UIButton!
     
