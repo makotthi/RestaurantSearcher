@@ -70,6 +70,10 @@ extension KeywordSearchViewController{
     private func initialSetting(){
         // TableViewDataSourceを設定
         storeTableView.dataSource = self
+        
+        // RestaurantTableViewCellの登録
+        storeTableView.register(UINib(nibName: "RestaurantTableViewCell", bundle: nil), forCellReuseIdentifier: "storeCell")
+        
         // TableViewnDelegateを設定
         storeTableView.delegate = self
 
@@ -121,33 +125,16 @@ extension KeywordSearchViewController: UITableViewDataSource{
     // tableViewCellに値をセットするdatasourceメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 表示するCellオブジェクトを取得
-        let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath)
-        // 店舗名称を設定
-        cell.textLabel?.text = restaurantList[indexPath.row].name
+        // キャストする
+        let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath) as! RestaurantTableViewCell
         
-        // サムネイル画像を取得
-        cell.imageView?.image = nil
-        // 画像を非同期で読み込む
-        cell.imageView?.loadImage(url: restaurantList[indexPath.row].image_url?.shop_image1)
+        // 店のデータ
+        let storeData = restaurantList[indexPath.row]
         
-        // 店舗アクセスを設定
-        var accessText = ""
-        if let line = restaurantList[indexPath.row].access?.line {
-            accessText = accessText + "\(line) "
-        }
-        if let station = restaurantList[indexPath.row].access?.station {
-            accessText = accessText + "\(station) "
-        }
-        if let exit = restaurantList[indexPath.row].access?.station_exit {
-            accessText = accessText + "\(exit) "
-        }
-        if let walk = restaurantList[indexPath.row].access?.walk {
-            if walk != "" {
-                accessText = accessText + "\(walk)分"
-            }
-        }
-        cell.detailTextLabel?.text = accessText
-
+        // tableViewCellに読み込んだ店のデータを表示させる
+        cell.setStoreData(storeData)
+        
+        
         // 設定したCellオブジェクトを画面に反映
         return cell
     }
