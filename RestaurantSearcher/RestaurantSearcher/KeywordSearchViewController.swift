@@ -69,7 +69,7 @@ extension KeywordSearchViewController{
         
         // ページ移動のボタンを無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         
         
         // pagingViewを画面に表示する
@@ -225,7 +225,7 @@ extension KeywordSearchViewController{
                         self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                     }
                     if self.currentPage != self.totalPage {
-                        self.nextPageButton.isEnabled = true
+                        self.pagingView.setNextPageButtonEnabled(isEnabled: true)
                     }
                 }
                 // searchBarのテキストを更新
@@ -254,7 +254,7 @@ extension KeywordSearchViewController: UISearchBarDelegate{
         storeTableView.reloadData()
         // ボタンを無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
         pageLabel.text = "通信中"
 
@@ -278,7 +278,7 @@ extension KeywordSearchViewController{
         storeTableView.reloadData()
         // ボタンを無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
         pageLabel.text = "通信中"
         keywordSearchBar.text = searchingKeyword
@@ -297,7 +297,7 @@ extension KeywordSearchViewController{
         storeTableView.reloadData()
         // ボタンを無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
-        nextPageButton.isEnabled = false
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
         pageLabel.text = "通信中"
         keywordSearchBar.text = searchingKeyword
