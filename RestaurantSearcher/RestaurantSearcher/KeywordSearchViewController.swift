@@ -212,7 +212,7 @@ extension KeywordSearchViewController{
                     }
                 } else {
                     // 該当するデータがなかった時に表示
-                    self.pageLabel.text = "検索結果なし"
+                    self.pagingView.setPageLabelText(text: "検索結果なし")
                 }
 
                 // TableViewを更新
@@ -220,7 +220,7 @@ extension KeywordSearchViewController{
                 // pageLabelを更新
                 if let total = json.total_hit_count {
                     self.totalPage = Int(ceil(Double(total) / 100.0))
-                    self.pageLabel.text = "\(self.currentPage) /\(self.totalPage) ページ"
+                    self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
                     if self.currentPage != 1 {
                         self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                     }
@@ -233,7 +233,7 @@ extension KeywordSearchViewController{
 
             } catch {
                 print("エラーが発生しました",error.localizedDescription)
-                self.pageLabel.text = "通信に失敗しました"
+                self.pagingView.setPageLabelText(text: "通信に失敗しました")
             }
         })
         // ダウンロード開始
@@ -256,7 +256,7 @@ extension KeywordSearchViewController: UISearchBarDelegate{
         pagingView.setBackPageButtonEnabled(isEnabled: false)
         pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
 
         // 現在のページ位置を1に
         currentPage = 1
@@ -280,7 +280,7 @@ extension KeywordSearchViewController{
         pagingView.setBackPageButtonEnabled(isEnabled: false)
         pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         keywordSearchBar.text = searchingKeyword
 
         // 前のページの検索結果を表示
@@ -299,7 +299,7 @@ extension KeywordSearchViewController{
         pagingView.setBackPageButtonEnabled(isEnabled: false)
         pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         keywordSearchBar.text = searchingKeyword
 
         // 前のページの検索結果を表示
