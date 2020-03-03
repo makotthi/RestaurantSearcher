@@ -21,6 +21,7 @@
 		0E8FF8C723B6F7E300503502 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8FF8C623B6F7E300503502 /* DetailsViewController.swift */; };
 		0E8FF8C923B9F54000503502 /* KeywordSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8FF8C823B9F54000503502 /* KeywordSearchViewController.swift */; };
 		0EFF3B40240E1BA100C3BC74 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3B3F240E1BA100C3BC74 /* PagingView.swift */; };
+		0EFF3B42240E1BFD00C3BC74 /* PagingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3B41240E1BFD00C3BC74 /* PagingView.xib */; };
 		D302B6BA3E45EA499510B6B4 /* libPods-RestaurantSearcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B9F6CF8DF6B664485A99B6 /* libPods-RestaurantSearcher.a */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		0E8FF8C623B6F7E300503502 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		0E8FF8C823B9F54000503502 /* KeywordSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSearchViewController.swift; sourceTree = "<group>"; };
 		0EFF3B3F240E1BA100C3BC74 /* PagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
+		0EFF3B41240E1BFD00C3BC74 /* PagingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PagingView.xib; sourceTree = "<group>"; };
 		1342E717F8BC48EE864B13DE /* Pods-RestaurantSearcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantSearcher.release.xcconfig"; path = "Target Support Files/Pods-RestaurantSearcher/Pods-RestaurantSearcher.release.xcconfig"; sourceTree = "<group>"; };
 		2A53424B1DB3BD94C86F76FB /* Pods-RestaurantSearcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantSearcher.debug.xcconfig"; path = "Target Support Files/Pods-RestaurantSearcher/Pods-RestaurantSearcher.debug.xcconfig"; sourceTree = "<group>"; };
 		68B9F6CF8DF6B664485A99B6 /* libPods-RestaurantSearcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RestaurantSearcher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFF3B3F240E1BA100C3BC74 /* PagingView.swift */,
+				0EFF3B41240E1BFD00C3BC74 /* PagingView.xib */,
 			);
 			path = PagingView;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E4DFBCE240DE7BD0088780D /* RestaurantTableViewCell.xib in Resources */,
+				0EFF3B42240E1BFD00C3BC74 /* PagingView.xib in Resources */,
 				0E79F49323B0C11400C7C171 /* LaunchScreen.storyboard in Resources */,
 				0E79F49023B0C11400C7C171 /* Assets.xcassets in Resources */,
 				0E79F48E23B0C11100C7C171 /* Main.storyboard in Resources */,
