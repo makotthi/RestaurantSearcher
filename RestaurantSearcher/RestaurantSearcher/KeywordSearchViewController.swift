@@ -272,7 +272,7 @@ extension KeywordSearchViewController: UISearchBarDelegate{
 // MARK: -Action
 extension KeywordSearchViewController{
     // 前のページボタンが押された時の処理
-    private func backPageButtonAction(_ sender: Any) {
+    private func backPageButtonAction() {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -291,7 +291,7 @@ extension KeywordSearchViewController{
     }
     
     // 次のページボタンが押された時の処理
-    private func nextPageButtonAction(_ sender: Any) {
+    private func nextPageButtonAction() {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
