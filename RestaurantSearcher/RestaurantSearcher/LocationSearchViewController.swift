@@ -21,7 +21,7 @@ class LocationSearchViewController: UIViewController {
     @IBOutlet private weak var searchButton: UIButton!
     
     // pagingView
-    @IBOutlet weak var pagingViewContainer: UIView!
+    @IBOutlet private weak var pagingViewContainer: UIView!
     
     
     // pagingViewクラスのインスタンスを生成
