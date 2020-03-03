@@ -19,7 +19,9 @@ class KeywordSearchViewController: UIViewController {
     // pagingView
     @IBOutlet private weak var pagingViewContainer: PagingView!
     
-   
+    
+    // pagingViewクラスのインスタンスを生成
+    private let pagingView = PagingView.fromXib()
   
     // 受け取ったレストランのデータを格納する配列
     private var restaurantList: [StoreData] = []
