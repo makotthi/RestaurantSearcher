@@ -354,6 +354,9 @@ extension LocationSearchViewController{
         // 現在の状態を表示
         pagingView.setPageLabelText(text: "通信中")
         
+        // pickerViewを閉じる
+        done()
+        
         // 検索する範囲をsearchRangeに代入
         if let range = rangeTextField.text {
             searchRange = range
