@@ -7,6 +7,17 @@ class PagingView: UIView {
     @IBOutlet private weak var nextPageButton: UIButton!
     @IBOutlet private weak var pageLabel: UILabel!
     
+
+    // MARK: -Static Method
+    static func fromXib() -> PagingView {
+        // PagingViewのxibファイルをオブジェクト化
+        let nib = UINib(nibName: "PagingView", bundle: nil)
+        // nibをインスタンス化
+        let pagingView = nib.instantiate(withOwner: nil, options: nil).first as! PagingView
+        
+        return pagingView
+    }
+    
     
     // MARK: -Closure
     // クロージャを定義
