@@ -68,6 +68,9 @@ extension KeywordSearchViewController{
         
         // 画面遷移時にキーボードを表示
         keywordSearchBar.becomeFirstResponder()
+        
+        // TableViewをスクロールすると、キーボードを閉じるように設定
+        storeTableView.keyboardDismissMode = .onDrag
     }
 }
 

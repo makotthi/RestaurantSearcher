@@ -124,6 +124,10 @@ extension LocationSearchViewController{
         pagingView.onTapNextPageButton = { [weak self] in
             self?.nextPageButtonAction()
         }
+        
+        
+        // TableViewをスクロールすると、キーボードを閉じるように設定
+        storeTableView.keyboardDismissMode = .onDrag
     }
 }
 
@@ -353,6 +357,9 @@ extension LocationSearchViewController{
         searchButton.isEnabled = false
         // 現在の状態を表示
         pagingView.setPageLabelText(text: "通信中")
+        
+        // pickerViewを閉じる
+        done()
         
         // 検索する範囲をsearchRangeに代入
         if let range = rangeTextField.text {
