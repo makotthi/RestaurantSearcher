@@ -29,7 +29,7 @@ class PagingView: UIView {
     }
     
     // pageLabelのテキストをセット
-    func setPageLabel(text: String){
+    func setPageLabelText(text: String){
         pageLabel.text = text
     }
     
