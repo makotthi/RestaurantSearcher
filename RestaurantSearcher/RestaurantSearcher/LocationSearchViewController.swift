@@ -102,7 +102,7 @@ extension LocationSearchViewController{
         rangeTextField.text = pickerItems[1]
         
         // ページ移動のボタンなどを無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
 
@@ -311,7 +311,7 @@ extension LocationSearchViewController{
                         self.totalPage = Int(ceil(Double(total) / 100.0))
                         self.pageLabel.text = "\(self.currentPage) /\(self.totalPage) ページ"
                         if self.currentPage != 1 {
-                            self.backPageButton.isEnabled = true
+                            self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                         }
                         if self.currentPage != self.totalPage {
                             self.nextPageButton.isEnabled = true
@@ -344,7 +344,7 @@ extension LocationSearchViewController{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンの無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
         // 現在の状態を表示
@@ -366,7 +366,7 @@ extension LocationSearchViewController{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンの無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
         // 現在の状態を表示
@@ -384,7 +384,7 @@ extension LocationSearchViewController{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンの無効化
-        backPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
         nextPageButton.isEnabled = false
         searchButton.isEnabled = false
         // 現在の状態を表示
