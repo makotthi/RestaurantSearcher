@@ -7,11 +7,10 @@ import Nuke
 extension UIImageView{
     // 画像を非同期で読み込む
     func loadImage(url: String?) {
-        if let urlStr = url{
-            if let imageURL = URL(string: urlStr){
-                Nuke.loadImage(with: imageURL, into: self)
-            }
+        guard let urlString = url, let imageURL = URL(string: urlString) else{
+            return
         }
+        Nuke.loadImage(with: imageURL, into: self)
     }
 }
 
