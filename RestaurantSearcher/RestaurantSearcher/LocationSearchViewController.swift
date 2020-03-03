@@ -124,6 +124,10 @@ extension LocationSearchViewController{
         pagingView.onTapNextPageButton = { [weak self] in
             self?.nextPageButtonAction()
         }
+        
+        
+        // TableViewをスクロールすると、キーボードを閉じるように設定
+        storeTableView.keyboardDismissMode = .onDrag
     }
 }
 
