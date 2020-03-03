@@ -10,7 +10,13 @@ extension UIImageView{
         guard let urlString = url, let imageURL = URL(string: urlString) else{
             return
         }
-        Nuke.loadImage(with: imageURL, into: self)
+        
+        // フェードインの設定
+        let options = ImageLoadingOptions(
+            transition: .fadeIn(duration: 0.33)
+        )
+        
+        Nuke.loadImage(with: imageURL, options: options, into: self)
     }
 }
 
