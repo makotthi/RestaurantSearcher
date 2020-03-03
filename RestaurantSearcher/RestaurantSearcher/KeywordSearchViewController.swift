@@ -72,6 +72,21 @@ extension KeywordSearchViewController{
         nextPageButton.isEnabled = false
         
         
+        // pagingViewを画面に表示する
+        pagingViewContainer.addSubview(pagingView)
+        
+        // AutoLayoutの誓約をつける
+        // 上下左右の誓約を追加
+        NSLayoutConstraint.activate([
+            pagingView.leadingAnchor.constraint(equalTo: pagingViewContainer.leadingAnchor), //言語の初めの方角
+            pagingView.trailingAnchor.constraint(equalTo: pagingViewContainer.trailingAnchor), //言語の終わり
+            pagingView.topAnchor.constraint(equalTo: pagingViewContainer.topAnchor), //上
+            pagingView.bottomAnchor.constraint(equalTo: pagingViewContainer.bottomAnchor) //下
+        ])
+        // AutoresizingMaskを無効にする
+        pagingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         // 画面遷移時にキーボードを表示
         keywordSearchBar.becomeFirstResponder()
         
