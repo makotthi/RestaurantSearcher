@@ -23,6 +23,7 @@
 		0EFF3B40240E1BA100C3BC74 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3B3F240E1BA100C3BC74 /* PagingView.swift */; };
 		0EFF3B42240E1BFD00C3BC74 /* PagingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3B41240E1BFD00C3BC74 /* PagingView.xib */; };
 		0EFF3B45240F4E8000C3BC74 /* CurrentLocationReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3B44240F4E8000C3BC74 /* CurrentLocationReader.swift */; };
+		0EFF3B48240F85AA00C3BC74 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3B47240F85AA00C3BC74 /* APIClient.swift */; };
 		D302B6BA3E45EA499510B6B4 /* libPods-RestaurantSearcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B9F6CF8DF6B664485A99B6 /* libPods-RestaurantSearcher.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		0EFF3B3F240E1BA100C3BC74 /* PagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
 		0EFF3B41240E1BFD00C3BC74 /* PagingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PagingView.xib; sourceTree = "<group>"; };
 		0EFF3B44240F4E8000C3BC74 /* CurrentLocationReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationReader.swift; sourceTree = "<group>"; };
+		0EFF3B47240F85AA00C3BC74 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		1342E717F8BC48EE864B13DE /* Pods-RestaurantSearcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantSearcher.release.xcconfig"; path = "Target Support Files/Pods-RestaurantSearcher/Pods-RestaurantSearcher.release.xcconfig"; sourceTree = "<group>"; };
 		2A53424B1DB3BD94C86F76FB /* Pods-RestaurantSearcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantSearcher.debug.xcconfig"; path = "Target Support Files/Pods-RestaurantSearcher/Pods-RestaurantSearcher.debug.xcconfig"; sourceTree = "<group>"; };
 		68B9F6CF8DF6B664485A99B6 /* libPods-RestaurantSearcher.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RestaurantSearcher.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +93,7 @@
 		0E4DFBD0240DFA0B0088780D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0EFF3B46240F859300C3BC74 /* APIClient */,
 				0EFF3B43240F4E6600C3BC74 /* Location */,
 				0E4DFBD1240DFA190088780D /* Response */,
 			);
@@ -158,6 +161,14 @@
 				0EFF3B44240F4E8000C3BC74 /* CurrentLocationReader.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		0EFF3B46240F859300C3BC74 /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				0EFF3B47240F85AA00C3BC74 /* APIClient.swift */,
+			);
+			path = APIClient;
 			sourceTree = "<group>";
 		};
 		5232A31B9FF9573E78AD6914 /* Frameworks */ = {
@@ -287,6 +298,7 @@
 				0EFF3B45240F4E8000C3BC74 /* CurrentLocationReader.swift in Sources */,
 				0EFF3B40240E1BA100C3BC74 /* PagingView.swift in Sources */,
 				0E4DFBD3240DFA8D0088780D /* APIResponse.swift in Sources */,
+				0EFF3B48240F85AA00C3BC74 /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
