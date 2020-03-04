@@ -7,7 +7,7 @@ import CoreLocation
 class LocationSearchViewController: UIViewController {
     
     // 位置情報を受け取るクラスのインスタンス
-    private var currentLocationReader = CurrentLocationReader()
+    private let currentLocationReader = CurrentLocationReader()
     // 検索範囲を入力するPickerViewのインスタンス
     private var rangePickerView: UIPickerView!
     private let pickerItems = ["300m", "500m", "1000m", "2000m", "3000m"]
