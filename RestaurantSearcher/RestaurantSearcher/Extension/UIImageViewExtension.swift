@@ -8,6 +8,7 @@ extension UIImageView{
     // 画像を非同期で読み込む
     func loadImage(url: String?) {
         guard let urlString = url, let imageURL = URL(string: urlString) else{
+            image = #imageLiteral(resourceName: "NoImage2")
             return
         }
         
