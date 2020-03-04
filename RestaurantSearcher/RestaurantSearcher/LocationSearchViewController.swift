@@ -222,7 +222,7 @@ extension LocationSearchViewController{
     // 現在地周辺のレストランを検索する
     private func searchRestaurantAround(){
         // 位置情報を取得する
-        currentLocationReader.readCurrentLocation {result in
+        currentLocationReader.readCurrentLocation {[unowned self] result in
             switch result{
             // 位置情報の取得に成功した時
             case .success(let latitude, let longitude):
