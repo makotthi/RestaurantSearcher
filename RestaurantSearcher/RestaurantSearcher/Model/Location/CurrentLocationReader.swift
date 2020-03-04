@@ -26,7 +26,7 @@ extension CurrentLocationReader: CLLocationManagerDelegate{
     // Delegateメソッド
     
     // 位置情報取得に成功した時に呼ばれる
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
     }
     
