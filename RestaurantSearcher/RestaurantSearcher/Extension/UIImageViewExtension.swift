@@ -34,3 +34,22 @@ extension UIImageView{
     }
 }
 
+// 画像のフェードインの処理
+extension UIImageView{
+    func fadeIn(duration: TimeInterval = 0.2, completed: (() -> ())? = nil, version: ImageVersion = .ver1) {
+        alpha = 0
+        isHidden = false
+        var durationVersion = duration
+        if version == .ver2 {
+            durationVersion = durationVersion + 0.4
+        }
+        
+        UIView.animate(withDuration: durationVersion,
+            animations: {
+                self.alpha = 1
+            }) { finished in
+                completed?()
+        }
+    }
+}
+
