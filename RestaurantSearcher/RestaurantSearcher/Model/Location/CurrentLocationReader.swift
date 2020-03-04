@@ -44,6 +44,7 @@ extension CurrentLocationReader: CLLocationManagerDelegate{
     
     // 位置情報取得に失敗した時に呼ばれる
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        
+        // 位置情報が取得できなかったことを伝える
+        onCompleteReadCurrentLocation?(.failure(error))
     }
 }
