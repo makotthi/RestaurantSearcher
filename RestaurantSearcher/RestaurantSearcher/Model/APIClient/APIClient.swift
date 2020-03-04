@@ -1,6 +1,7 @@
+import UIKit
 
 class APIClient{
-    func receiveRestaurants(_ urlString: String, _ handler: @escaping (Result<StoreDataArray, Error>) -> Void){
+    func receiveRestaurants(_ url: URL, _ handler: @escaping (Result<StoreDataArray, Error>) -> Void){
         
     }
 }
