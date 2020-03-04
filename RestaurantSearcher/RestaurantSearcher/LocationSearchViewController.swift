@@ -7,7 +7,7 @@ import CoreLocation
 class LocationSearchViewController: UIViewController {
     
     // 位置情報を受け取るクラスのインスタンス
-    private var myLocationManager:CLLocationManager!
+    private let currentLocationReader = CurrentLocationReader()
     // 検索範囲を入力するPickerViewのインスタンス
     private var rangePickerView: UIPickerView!
     private let pickerItems = ["300m", "500m", "1000m", "2000m", "3000m"]
@@ -51,8 +51,8 @@ class LocationSearchViewController: UIViewController {
         // 初期設定
         initialSetting()
         
-        // 現在地を取得
-        myLocationManager.requestLocation()
+        // 現在地周辺のレストランを検索
+        searchRestaurantAround()
     }
     
 }
@@ -61,19 +61,6 @@ class LocationSearchViewController: UIViewController {
 // MARK: -InitialSettings
 extension LocationSearchViewController{
     private func initialSetting(){
-        // 位置情報を受け取る処理の初期設定
-        myLocationManager = CLLocationManager()
-        myLocationManager.delegate = self
-         // 承認されていない場合はここで認証ダイアログを表示します.
-        let status = CLLocationManager.authorizationStatus()
-        if(status == CLAuthorizationStatus.notDetermined) {
-            print("didChangeAuthorizationStatus:\(status)")
-            self.myLocationManager.requestWhenInUseAuthorization()
-        }
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        myLocationManager.distanceFilter = kCLDistanceFilterNone
-        
-        
         // PickerViewの初期化
         rangePickerView = UIPickerView()
         rangePickerView.delegate = self
@@ -128,30 +115,6 @@ extension LocationSearchViewController{
         
         // TableViewをスクロールすると、キーボードを閉じるように設定
         storeTableView.keyboardDismissMode = .onDrag
-    }
-}
-
-
-// MARK: -CLLocationManagerDelegate
-extension LocationSearchViewController: CLLocationManagerDelegate{
-    // locationManager関連のメソッド
-    // 位置情報取得成功時に呼ばれます
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            // 緯度と経度を受け取る
-            latitude = location.coordinate.latitude
-            longitude = location.coordinate.longitude
-            
-            // 店舗を検索する
-            searchRestaurant(rangeWord: searchRange)
-        }
-    }
-    
-    // 位置情報取得失敗時に呼ばれます
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error")
-        pagingView.setPageLabelText(text: "位置情報の取得に失敗しました")
-        searchButton.isEnabled = true
     }
 }
 
@@ -252,6 +215,33 @@ extension LocationSearchViewController: UITableViewDelegate{
         }
     }
 }
+
+
+// MARK: -FindRestaurantAround
+extension LocationSearchViewController{
+    // 現在地周辺のレストランを検索する
+    private func searchRestaurantAround(){
+        // 位置情報を取得する
+        currentLocationReader.readCurrentLocation {[unowned self] result in
+            switch result{
+            // 位置情報の取得に成功した時
+            case .success(let latitude, let longitude):
+                // 緯度と経度を受け取る
+                self.latitude = latitude
+                self.longitude = longitude
+                // 店舗を検索する
+                self.searchRestaurant(rangeWord: self.searchRange)
+            
+            // 位置情報の取得に失敗した時
+            case .failure(let error):
+                print(error)
+                self.pagingView.setPageLabelText(text: "位置情報の取得に失敗しました")
+                self.searchButton.isEnabled = true
+            }
+        }
+    }
+}
+
 
 
 // MARK: -API
@@ -367,8 +357,8 @@ extension LocationSearchViewController{
         }
         // 現在のページ位置を1に
         currentPage = 1
-        // 位置情報を検索して表示
-        myLocationManager.requestLocation()
+        // 現在地周辺のレストランを検索
+        searchRestaurantAround()
     }
     
     // 前のページボタンが押された時の処理
