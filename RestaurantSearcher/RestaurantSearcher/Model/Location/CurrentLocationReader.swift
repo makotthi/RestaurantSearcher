@@ -19,6 +19,13 @@ class CurrentLocationReader: NSObject{
     
     // 位置情報を読み取って、緯度経度を返す
     func readCurrentLocation(_ handler: @escaping (Result<(Double, Double), Error>) -> Void) {
+        // 承認されていない場合はここで認証ダイアログを表示します.
+        let status = CLLocationManager.authorizationStatus()
+        if(status == CLAuthorizationStatus.notDetermined) {
+            print("didChangeAuthorizationStatus:\(status)")
+            self.locationManager.requestWhenInUseAuthorization()
+        }
+        
         // onCompleteReadCurrentLocationに、受け取ったhandlerを設定
         onCompleteReadCurrentLocation = handler
         
