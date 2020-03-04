@@ -15,9 +15,9 @@ extension UIImageView{
         guard let urlString = url, let imageURL = URL(string: urlString) else{
             switch version {
             case .ver1:
-                image = #imageLiteral(resourceName: "NoImage1")
-            case .ver2:
                 image = #imageLiteral(resourceName: "NoImage2")
+            case .ver2:
+                image = #imageLiteral(resourceName: "NoImage1")
             }
             return
         }
