@@ -19,6 +19,7 @@ extension UIImageView{
             case .ver2:
                 image = #imageLiteral(resourceName: "NoImage1")
             }
+            self.fadeIn(version: version)
             return
         }
         
