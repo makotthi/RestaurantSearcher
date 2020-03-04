@@ -12,12 +12,22 @@ class APIClient{
             (data, response, error) in
             // セッションを終了
             session.finishTasksAndInvalidate()
+            
+            // API通信に失敗した時のエラーハンドリング
+            if let error = error {
+                handler(.failure(error))
+                return
+            }
+            guard let data = data else {
+                return
+            }
+            
             // do try catch エラーハンドリング
             do {
                 // JSONDecoderのインスタンスを生成
                 let decoder = JSONDecoder()
                 // 受け取ったjsonデータをパースして格納
-                let json = try decoder.decode(StoreDataArray.self, from: data!)
+                let json = try decoder.decode(StoreDataArray.self, from: data)
                 
                 // クロージャを実行
                 handler(.success(json))
