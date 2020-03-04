@@ -52,8 +52,8 @@ class LocationSearchViewController: UIViewController {
         // 初期設定
         initialSetting()
         
-        // 現在地を取得
-        myLocationManager.requestLocation()
+        // 現在地周辺のレストランを検索
+        searchRestaurantAround()
     }
     
 }
@@ -395,8 +395,8 @@ extension LocationSearchViewController{
         }
         // 現在のページ位置を1に
         currentPage = 1
-        // 位置情報を検索して表示
-        myLocationManager.requestLocation()
+        // 現在地周辺のレストランを検索
+        searchRestaurantAround()
     }
     
     // 前のページボタンが押された時の処理
