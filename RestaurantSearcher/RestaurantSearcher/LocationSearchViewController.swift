@@ -259,7 +259,24 @@ extension LocationSearchViewController: UITableViewDelegate{
 extension LocationSearchViewController{
     // 現在地周辺のレストランを検索する
     private func searchRestaurantAround(){
-        
+        // 位置情報を取得する
+        currentLocationReader.readCurrentLocation {result in
+            switch result{
+            // 位置情報の取得に成功した時
+            case .success(let latitude, let longitude):
+                // 緯度と経度を受け取る
+                self.latitude = latitude
+                self.longitude = longitude
+                // 店舗を検索する
+                self.searchRestaurant(rangeWord: self.searchRange)
+            
+            // 位置情報の取得に失敗した時
+            case .failure(let error):
+                print(error)
+                self.pagingView.setPageLabelText(text: "位置情報の取得に失敗しました")
+                self.searchButton.isEnabled = true
+            }
+        }
     }
 }
 
