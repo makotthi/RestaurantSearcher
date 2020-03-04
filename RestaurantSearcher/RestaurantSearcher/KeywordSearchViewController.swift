@@ -28,6 +28,9 @@ class KeywordSearchViewController: UIViewController {
     private var totalPage = 1
     // 現在検索しているキーワード
     private var searchingKeyword: String?
+    
+    // APIクライアント
+    private var apiClient = APIClient()
 
 
     // 初回の画面遷移した時に呼ばれる
