@@ -19,6 +19,9 @@ class CurrentLocationReader: NSObject{
     
     // 位置情報を読み取って、緯度経度を返す
     func readCurrentLocation(_ handler: @escaping (Result<(Double, Double), Error>) -> Void) {
+        // onCompleteReadCurrentLocationに、受け取ったhandlerを設定
+        onCompleteReadCurrentLocation = handler
+        
         // 位置情報を取得する
         locationManager.requestLocation()
     }
