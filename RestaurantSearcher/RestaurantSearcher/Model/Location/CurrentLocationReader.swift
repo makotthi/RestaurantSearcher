@@ -15,6 +15,10 @@ class CurrentLocationReader: NSObject{
         
         // LocationManagerDelegateを設定
         locationManager.delegate = self
+        
+        // locationManagerの精度などの初期設定
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = kCLDistanceFilterNone
     }
     
     // 位置情報を読み取って、緯度経度を返す
