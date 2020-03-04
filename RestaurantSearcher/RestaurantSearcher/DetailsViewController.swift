@@ -23,7 +23,7 @@ class DetailsViewController: UIViewController {
     private var storeData: StoreData?
     
     // APIクライアント
-    private var apiClient = APIClient()
+    private let apiClient = APIClient()
     
     
     // 画面遷移をした時に呼ばれる

@@ -43,7 +43,7 @@ class LocationSearchViewController: UIViewController {
     private var totalPage = 1
     
     // APIクライアント
-    private var apiClient = APIClient()
+    private let apiClient = APIClient()
     
     
     // 初回の画面遷移した時に呼ばれる

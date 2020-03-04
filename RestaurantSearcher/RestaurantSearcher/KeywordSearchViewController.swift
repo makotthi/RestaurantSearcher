@@ -30,7 +30,7 @@ class KeywordSearchViewController: UIViewController {
     private var searchingKeyword: String?
     
     // APIクライアント
-    private var apiClient = APIClient()
+    private let apiClient = APIClient()
 
 
     // 初回の画面遷移した時に呼ばれる
