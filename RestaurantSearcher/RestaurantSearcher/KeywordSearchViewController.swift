@@ -10,12 +10,14 @@ class KeywordSearchViewController: UIViewController {
     @IBOutlet private weak var storeTableView: UITableView!
     // 検索キーワードを入力するsearchBar
     @IBOutlet private weak var keywordSearchBar: UISearchBar!
-    // 現在のページ数を表示するLabel
-    @IBOutlet private weak var pageLabel: UILabel!
-    // ページ移動のボタン
-    @IBOutlet private weak var backPageButton: UIButton!
-    @IBOutlet private weak var nextPageButton: UIButton!
-   
+
+    
+    // pagingView
+    @IBOutlet private weak var pagingViewContainer: PagingView!
+    
+    
+    // pagingViewクラスのインスタンスを生成
+    private let pagingView = PagingView.fromXib()
   
     // 受け取ったレストランのデータを格納する配列
     private var restaurantList: [StoreData] = []
@@ -62,8 +64,32 @@ extension KeywordSearchViewController{
         
         
         // ページ移動のボタンを無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
+        
+        
+        // pagingViewを画面に表示する
+        pagingViewContainer.addSubview(pagingView)
+        
+        // AutoLayoutの誓約をつける
+        // 上下左右の誓約を追加
+        NSLayoutConstraint.activate([
+            pagingView.leadingAnchor.constraint(equalTo: pagingViewContainer.leadingAnchor), //言語の初めの方角
+            pagingView.trailingAnchor.constraint(equalTo: pagingViewContainer.trailingAnchor), //言語の終わり
+            pagingView.topAnchor.constraint(equalTo: pagingViewContainer.topAnchor), //上
+            pagingView.bottomAnchor.constraint(equalTo: pagingViewContainer.bottomAnchor) //下
+        ])
+        // AutoresizingMaskを無効にする
+        pagingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        // クロージャの設定
+        pagingView.onTapBackPageButton = { [weak self] in
+            self?.backPageButtonAction()
+        }
+        pagingView.onTapNextPageButton = { [weak self] in
+            self?.nextPageButtonAction()
+        }
         
         
         // 画面遷移時にキーボードを表示
@@ -191,7 +217,7 @@ extension KeywordSearchViewController{
                     }
                 } else {
                     // 該当するデータがなかった時に表示
-                    self.pageLabel.text = "検索結果なし"
+                    self.pagingView.setPageLabelText(text: "検索結果なし")
                 }
 
                 // TableViewを更新
@@ -199,12 +225,12 @@ extension KeywordSearchViewController{
                 // pageLabelを更新
                 if let total = json.total_hit_count {
                     self.totalPage = Int(ceil(Double(total) / 100.0))
-                    self.pageLabel.text = "\(self.currentPage) /\(self.totalPage) ページ"
+                    self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
                     if self.currentPage != 1 {
-                        self.backPageButton.isEnabled = true
+                        self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                     }
                     if self.currentPage != self.totalPage {
-                        self.nextPageButton.isEnabled = true
+                        self.pagingView.setNextPageButtonEnabled(isEnabled: true)
                     }
                 }
                 // searchBarのテキストを更新
@@ -212,7 +238,7 @@ extension KeywordSearchViewController{
 
             } catch {
                 print("エラーが発生しました",error.localizedDescription)
-                self.pageLabel.text = "通信に失敗しました"
+                self.pagingView.setPageLabelText(text: "通信に失敗しました")
             }
         })
         // ダウンロード開始
@@ -232,10 +258,10 @@ extension KeywordSearchViewController: UISearchBarDelegate{
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンを無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
 
         // 現在のページ位置を1に
         currentPage = 1
@@ -251,15 +277,15 @@ extension KeywordSearchViewController: UISearchBarDelegate{
 // MARK: -Action
 extension KeywordSearchViewController{
     // 前のページボタンが押された時の処理
-    @IBAction private func backPageButtonAction(_ sender: Any) {
+    private func backPageButtonAction() {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンを無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         keywordSearchBar.text = searchingKeyword
 
         // 前のページの検索結果を表示
@@ -270,15 +296,15 @@ extension KeywordSearchViewController{
     }
     
     // 次のページボタンが押された時の処理
-    @IBAction private func nextPageButtonAction(_ sender: Any) {
+    private func nextPageButtonAction() {
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
         // ボタンを無効化
-        backPageButton.isEnabled = false
-        nextPageButton.isEnabled = false
+        pagingView.setBackPageButtonEnabled(isEnabled: false)
+        pagingView.setNextPageButtonEnabled(isEnabled: false)
         // 現在の状態を表示
-        pageLabel.text = "通信中"
+        pagingView.setPageLabelText(text: "通信中")
         keywordSearchBar.text = searchingKeyword
 
         // 前のページの検索結果を表示
