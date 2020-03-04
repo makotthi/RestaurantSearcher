@@ -3,6 +3,11 @@
 import UIKit
 import Nuke
 
+// NoImage画像のバージョンを定義
+enum  ImageVersion {
+    case ver1, ver2
+}
+
 // UIImageViewを拡張
 extension UIImageView{
     // 画像を非同期で読み込む
