@@ -11,9 +11,14 @@ enum  ImageVersion {
 // UIImageViewを拡張
 extension UIImageView{
     // 画像を非同期で読み込む
-    func loadImage(url: String?) {
+    func loadImage(url: String?, version: ImageVersion = .ver1) {
         guard let urlString = url, let imageURL = URL(string: urlString) else{
-            image = #imageLiteral(resourceName: "NoImage2")
+            switch version {
+            case .ver1:
+                image = #imageLiteral(resourceName: "NoImage1")
+            case .ver2:
+                image = #imageLiteral(resourceName: "NoImage2")
+            }
             return
         }
         
