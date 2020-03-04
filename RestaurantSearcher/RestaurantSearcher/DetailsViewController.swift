@@ -52,7 +52,7 @@ extension DetailsViewController{
             }
             
             // レストランのデータを受け取る
-            apiClient.receiveRestaurants(requestURL, { result in
+            apiClient.receiveRestaurants(requestURL, {[unowned self]  result in
                 switch result {
                 // データを受け取れた時
                 case .success(let storeDataArray):
