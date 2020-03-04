@@ -81,7 +81,7 @@ extension DetailsViewController{
     private func showStoreData(){
         // 店舗画像を表示
         storeImageView1.loadImage(url: storeData?.image_url?.shop_image1)
-        storeImageView2.loadImage(url: storeData?.image_url?.shop_image2)
+        storeImageView2.loadImage(url: storeData?.image_url?.shop_image2, version: .ver2)
         
         // 店舗名称を表示
         nameLabel.text = storeData?.name
