@@ -22,6 +22,9 @@ class DetailsViewController: UIViewController {
     // 店の詳細データ
     private var storeData: StoreData?
     
+    // APIクライアント
+    private var apiClient = APIClient()
+    
     
     // 画面遷移をした時に呼ばれる
     override func viewDidLoad() {
