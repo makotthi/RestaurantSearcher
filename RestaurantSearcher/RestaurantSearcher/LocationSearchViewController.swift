@@ -254,6 +254,16 @@ extension LocationSearchViewController: UITableViewDelegate{
 }
 
 
+// MARK: -FindRestaurantAround
+extension LocationSearchViewController{
+    // 現在地周辺のレストランを検索する
+    private func searchRestaurantAround(){
+        
+    }
+}
+
+
+
 // MARK: -API
 extension LocationSearchViewController{
     // API通信を行うメソッド
