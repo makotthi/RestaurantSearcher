@@ -19,9 +19,12 @@ class APIClient{
                 // 受け取ったjsonデータをパースして格納
                 let json = try decoder.decode(StoreDataArray.self, from: data!)
                 
+                // クロージャを実行
+                handler(.success(json))
                 
             } catch {
                 print("エラーが出ました")
+                handler(.failure(error))
             }
         })
         // ダウンロード開始
