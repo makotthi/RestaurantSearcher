@@ -28,6 +28,7 @@ class APIClient{
                 let decoder = JSONDecoder()
                 // 受け取ったjsonデータをパースして格納
                 let json = try decoder.decode(StoreDataArray.self, from: data)
+                print("ヒット件数:\(String(describing: json.total_hit_count))")
                 
                 // クロージャを実行
                 handler(.success(json))
