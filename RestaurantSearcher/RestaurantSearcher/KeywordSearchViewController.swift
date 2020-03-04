@@ -193,27 +193,15 @@ extension KeywordSearchViewController{
             return
         }
         print(requestURL)
-
-        // リクエストに必要な情報を生成
-        let req = URLRequest(url: requestURL)
-        // データ転送を管理するためのセッションを生成
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        // リクエストをタスクとして登録
-        let task = session.dataTask(with: req, completionHandler: {
-            (data, response, error) in
-            // セッションを終了
-            session.finishTasksAndInvalidate()
-            // do try catch エラーハンドリング
-            do {
-                // JSONDecoderのインスタンス取得
-                let decoder = JSONDecoder()
-                // 受け取ったJSONデータをパースして格納
-                let json = try decoder.decode(StoreDataArray.self, from: data!)
-                print("ヒット件数:\(String(describing: json.total_hit_count))")
-
+        
+        // レストランのデータを受け取る
+        apiClient.receiveRestaurants(requestURL, {[unowned self]  result in
+            switch result {
+            // データを受け取れた時
+            case .success(let storeDataArray):
                 // レストランデータのリストを初期化
                 self.restaurantList.removeAll()
-                if let items = json.rest {
+                if let items = storeDataArray.rest {
                     for item in items{
                         // 各店舗のデータを配列に追加
                         self.restaurantList.append(item)
@@ -226,7 +214,7 @@ extension KeywordSearchViewController{
                 // TableViewを更新
                 self.storeTableView.reloadData()
                 // pageLabelを更新
-                if let total = json.total_hit_count {
+                if let total = storeDataArray.total_hit_count {
                     self.totalPage = Int(ceil(Double(total) / 100.0))
                     self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
                     if self.currentPage != 1 {
@@ -238,14 +226,14 @@ extension KeywordSearchViewController{
                 }
                 // searchBarのテキストを更新
                 self.keywordSearchBar.text = self.searchingKeyword
-
-            } catch {
-                print("エラーが発生しました",error.localizedDescription)
-                self.pagingView.setPageLabelText(text: "通信に失敗しました")
+                
+            // エラーが発生した時
+            case .failure(let error):
+                print(error)
+                self.pagingView.setPageLabelText(text: "通信に失敗")
             }
         })
-        // ダウンロード開始
-        task.resume()
+
     }
 }
 
