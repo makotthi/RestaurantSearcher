@@ -8,7 +8,6 @@ class LocationSearchViewController: UIViewController {
     
     // 位置情報を受け取るクラスのインスタンス
     private var currentLocationReader = CurrentLocationReader()
-    private var myLocationManager:CLLocationManager!
     // 検索範囲を入力するPickerViewのインスタンス
     private var rangePickerView: UIPickerView!
     private let pickerItems = ["300m", "500m", "1000m", "2000m", "3000m"]
@@ -62,19 +61,6 @@ class LocationSearchViewController: UIViewController {
 // MARK: -InitialSettings
 extension LocationSearchViewController{
     private func initialSetting(){
-        // 位置情報を受け取る処理の初期設定
-        myLocationManager = CLLocationManager()
-        myLocationManager.delegate = self
-         // 承認されていない場合はここで認証ダイアログを表示します.
-        let status = CLLocationManager.authorizationStatus()
-        if(status == CLAuthorizationStatus.notDetermined) {
-            print("didChangeAuthorizationStatus:\(status)")
-            self.myLocationManager.requestWhenInUseAuthorization()
-        }
-        myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
-        myLocationManager.distanceFilter = kCLDistanceFilterNone
-        
-        
         // PickerViewの初期化
         rangePickerView = UIPickerView()
         rangePickerView.delegate = self
@@ -129,30 +115,6 @@ extension LocationSearchViewController{
         
         // TableViewをスクロールすると、キーボードを閉じるように設定
         storeTableView.keyboardDismissMode = .onDrag
-    }
-}
-
-
-// MARK: -CLLocationManagerDelegate
-extension LocationSearchViewController: CLLocationManagerDelegate{
-    // locationManager関連のメソッド
-    // 位置情報取得成功時に呼ばれます
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            // 緯度と経度を受け取る
-            latitude = location.coordinate.latitude
-            longitude = location.coordinate.longitude
-            
-            // 店舗を検索する
-            searchRestaurant(rangeWord: searchRange)
-        }
-    }
-    
-    // 位置情報取得失敗時に呼ばれます
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error")
-        pagingView.setPageLabelText(text: "位置情報の取得に失敗しました")
-        searchButton.isEnabled = true
     }
 }
 
