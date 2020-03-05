@@ -21,7 +21,7 @@ extension UIImageView{
                 image = #imageLiteral(resourceName: "NoImage1")
                 duration += 0.4
             }
-            self.fadeIn(noImage: noImage)
+            self.fadeIn(duration: duration)
             return
         }
         
@@ -39,7 +39,7 @@ extension UIImageView{
 
 // 画像のフェードインの処理
 extension UIImageView{
-    func fadeIn(duration: TimeInterval = 0.2, completed: (() -> ())? = nil, noImage: NoImage = .ver1) {
+    func fadeIn(duration: TimeInterval = 0.2, completed: (() -> ())? = nil) {
         alpha = 0
         isHidden = false
         
