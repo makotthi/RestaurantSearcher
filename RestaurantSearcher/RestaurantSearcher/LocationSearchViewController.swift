@@ -302,6 +302,29 @@ extension LocationSearchViewController {
 
         }
     }
+
+    // データを受け取れた時の処理
+    func receive(_ storeDataArray: StoreDataArray) {
+        // レストランデータのリストを初期化
+        restaurantList = storeDataArray.rest ?? []
+
+        // TableViewを更新
+        storeTableView.reloadData()
+        // pageLabelを更新
+        let pageString = storeDataArray.pageString(currentPage: currentPage)
+        pagingView.setPageLabelText(text: pageString)
+
+        // ページ移動のボタンが有効かどうかを設定
+        let hasPreviousPage = storeDataArray.hasPreviousPage(of: currentPage)
+        let hasNextPage = storeDataArray.hasNextPage(of: currentPage)
+        pagingView.setBackPageButtonEnabled(isEnabled: hasPreviousPage)
+        pagingView.setNextPageButtonEnabled(isEnabled: hasNextPage)
+
+        // textFieldのテキストを更新
+        rangeTextField.text = searchRange
+        // 再検索ボタンを有効にする
+        searchButton.isEnabled = true
+    }
 }
 
 // MARK: - Action
