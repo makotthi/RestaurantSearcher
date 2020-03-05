@@ -14,12 +14,12 @@ struct StoreDataArray: Codable {
         }
         return Int(ceil(Double(total) / 100.0))
     }
-    
+
     // total_hit_countが値を持っているかどうかを判断
     var hasResult: Bool {
         totalPage > 0
     }
-    
+
     // ページの文字列を作る
     func pageString(currentPage: Int) -> String {
         if hasResult {
@@ -27,6 +27,16 @@ struct StoreDataArray: Codable {
         } else {
             return "検索結果なし"
         }
+    }
+
+    // 次のページがあるかどうかを返す
+    func hasNextPage(of page: Int) -> Bool {
+        page < totalPage
+    }
+
+    // 前のページがあるかどうかを返す
+    func hasPreviousPage(of page: Int) -> Bool {
+        page > 1
     }
 }
 // 店舗のデータを格納する
