@@ -20,7 +20,6 @@ class KeywordSearchViewController: UIViewController {
     private var selectID: String?
     // 現在表示しているページの番号と全ページの数
     private var currentPage = 1
-    private var totalPage = 1
     // 現在検索しているキーワード
     private var searchingKeyword: String?
 
@@ -182,33 +181,7 @@ extension KeywordSearchViewController {
             switch result {
             // データを受け取れた時
             case .success(let storeDataArray):
-                // レストランデータのリストを初期化
-                self.restaurantList.removeAll()
-                if let items = storeDataArray.rest {
-                    for item in items {
-                        // 各店舗のデータを配列に追加
-                        self.restaurantList.append(item)
-                    }
-                } else {
-                    // 該当するデータがなかった時に表示
-                    self.pagingView.setPageLabelText(text: "検索結果なし")
-                }
-
-                // TableViewを更新
-                self.storeTableView.reloadData()
-                // pageLabelを更新
-                if let total = storeDataArray.total_hit_count {
-                    self.totalPage = Int(ceil(Double(total) / 100.0))
-                    self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
-                    if self.currentPage != 1 {
-                        self.pagingView.setBackPageButtonEnabled(isEnabled: true)
-                    }
-                    if self.currentPage != self.totalPage {
-                        self.pagingView.setNextPageButtonEnabled(isEnabled: true)
-                    }
-                }
-                // searchBarのテキストを更新
-                self.keywordSearchBar.text = self.searchingKeyword
+                self.receive(storeDataArray)
 
             // エラーが発生した時
             case .failure(let error):
@@ -217,6 +190,27 @@ extension KeywordSearchViewController {
             }
         })
 
+    }
+
+    // データを受け取れた時の処理
+    func receive(_ storeDataArray: StoreDataArray) {
+        // レストランデータのリストを初期化
+        restaurantList = storeDataArray.rest ?? []
+
+        // TableViewを更新
+        storeTableView.reloadData()
+        // pageLabelを更新
+        let pageString = storeDataArray.pageString(currentPage: currentPage)
+        pagingView.setPageLabelText(text: pageString)
+
+        // ページ移動のボタンが有効かどうかを設定
+        let hasPreviousPage = storeDataArray.hasPreviousPage(of: currentPage)
+        let hasNextPage = storeDataArray.hasNextPage(of: currentPage)
+        pagingView.setBackPageButtonEnabled(isEnabled: hasPreviousPage)
+        pagingView.setNextPageButtonEnabled(isEnabled: hasNextPage)
+
+        // searchBarのテキストを更新
+        keywordSearchBar.text = searchingKeyword
     }
 }
 
