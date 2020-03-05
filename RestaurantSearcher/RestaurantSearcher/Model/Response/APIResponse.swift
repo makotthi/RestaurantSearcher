@@ -1,9 +1,19 @@
+import  Foundation
+
 // APIレスポンスを格納する構造体を定義
 
 // 店舗データを格納する配列
 struct StoreDataArray: Codable {
     let total_hit_count: Int?
     let rest: [StoreData]?
+    
+    // レスポンスのページ数を返す
+    var totalPage: Int {
+        guard let total = total_hit_count else {
+            return 0
+        }
+        return Int(ceil(Double(total) / 100.0))
+    }
 }
 // 店舗のデータを格納する
 struct StoreData: Codable {

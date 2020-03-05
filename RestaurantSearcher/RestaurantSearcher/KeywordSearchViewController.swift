@@ -188,7 +188,7 @@ extension KeywordSearchViewController {
                 self.storeTableView.reloadData()
                 // pageLabelを更新
                 if let total = storeDataArray.total_hit_count {
-                    let totalPage = Int(ceil(Double(total) / 100.0))
+                    let totalPage = storeDataArray.totalPage
                     self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(totalPage) ページ")
                     if self.currentPage != 1 {
                         self.pagingView.setBackPageButtonEnabled(isEnabled: true)
