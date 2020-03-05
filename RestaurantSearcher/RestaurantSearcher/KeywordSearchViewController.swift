@@ -183,16 +183,7 @@ extension KeywordSearchViewController {
             // データを受け取れた時
             case .success(let storeDataArray):
                 // レストランデータのリストを初期化
-                self.restaurantList.removeAll()
-                if let items = storeDataArray.rest {
-                    for item in items {
-                        // 各店舗のデータを配列に追加
-                        self.restaurantList.append(item)
-                    }
-                } else {
-                    // 該当するデータがなかった時に表示
-                    self.pagingView.setPageLabelText(text: "検索結果なし")
-                }
+                self.restaurantList = storeDataArray.rest ?? []
 
                 // TableViewを更新
                 self.storeTableView.reloadData()
@@ -206,7 +197,11 @@ extension KeywordSearchViewController {
                     if self.currentPage != self.totalPage {
                         self.pagingView.setNextPageButtonEnabled(isEnabled: true)
                     }
+                } else {
+                    // 該当するデータがなかった時に表示
+                    self.pagingView.setPageLabelText(text: "検索結果なし")
                 }
+
                 // searchBarのテキストを更新
                 self.keywordSearchBar.text = self.searchingKeyword
 
