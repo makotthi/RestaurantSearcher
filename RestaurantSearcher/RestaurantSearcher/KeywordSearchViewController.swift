@@ -1,24 +1,19 @@
-
-
 import UIKit
 
-
-// MARK: -vars and initialize
+// MARK: - vars and initialize
 class KeywordSearchViewController: UIViewController {
-    
+
     // 店の一覧を表示するTableView
     @IBOutlet private weak var storeTableView: UITableView!
     // 検索キーワードを入力するsearchBar
     @IBOutlet private weak var keywordSearchBar: UISearchBar!
 
-    
     // pagingView
     @IBOutlet private weak var pagingViewContainer: PagingView!
-    
-    
+
     // pagingViewクラスのインスタンスを生成
     private let pagingView = PagingView.fromXib()
-  
+
     // 受け取ったレストランのデータを格納する配列
     private var restaurantList: [StoreData] = []
     // 選択したレストランのID
@@ -28,31 +23,29 @@ class KeywordSearchViewController: UIViewController {
     private var totalPage = 1
     // 現在検索しているキーワード
     private var searchingKeyword: String?
-    
+
     // APIクライアント
     private let apiClient = APIClient()
-
 
     // 初回の画面遷移した時に呼ばれる
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // 初期設定
         initialSetting()
     }
-    
+
 }
 
-
-// MARK: -InitialSettings
-extension KeywordSearchViewController{
-    private func initialSetting(){
+// MARK: - InitialSettings
+extension KeywordSearchViewController {
+    private func initialSetting() {
         // TableViewDataSourceを設定
         storeTableView.dataSource = self
-        
+
         // RestaurantTableViewCellの登録
         storeTableView.register(UINib(nibName: "RestaurantTableViewCell", bundle: nil), forCellReuseIdentifier: "storeCell")
-        
+
         // TableViewnDelegateを設定
         storeTableView.delegate = self
 
@@ -61,19 +54,16 @@ extension KeywordSearchViewController{
         // プレースホルダーを設定
         keywordSearchBar.placeholder = "キーワードを入力してください"
 
-        
         // ツールバーの生成
         makeToolbar()
-        
-        
+
         // ページ移動のボタンを無効化
         pagingView.setBackPageButtonEnabled(isEnabled: false)
         pagingView.setNextPageButtonEnabled(isEnabled: false)
-        
-        
+
         // pagingViewを画面に表示する
         pagingViewContainer.addSubview(pagingView)
-        
+
         // AutoLayoutの誓約をつける
         // 上下左右の誓約を追加
         NSLayoutConstraint.activate([
@@ -84,8 +74,7 @@ extension KeywordSearchViewController{
         ])
         // AutoresizingMaskを無効にする
         pagingView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+
         // クロージャの設定
         pagingView.onTapBackPageButton = { [weak self] in
             self?.backPageButtonAction()
@@ -93,39 +82,36 @@ extension KeywordSearchViewController{
         pagingView.onTapNextPageButton = { [weak self] in
             self?.nextPageButtonAction()
         }
-        
-        
+
         // 画面遷移時にキーボードを表示
         keywordSearchBar.becomeFirstResponder()
-        
+
         // TableViewをスクロールすると、キーボードを閉じるように設定
         storeTableView.keyboardDismissMode = .onDrag
     }
 }
 
-
-// MARK: -UIToolbar
-extension KeywordSearchViewController{
+// MARK: - UIToolbar
+extension KeywordSearchViewController {
     // toolBar関連のメソッド
-    
+
     // ツールバーの生成
-    private func makeToolbar(){
+    private func makeToolbar() {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 35))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
         toolbar.setItems([spacelItem, doneItem], animated: true)
         keywordSearchBar.inputAccessoryView = toolbar
     }
-    
+
     // Doneボタンを押した時の処理
     @objc private func done() {
         keywordSearchBar.endEditing(true)
     }
 }
 
-
-// MARK: -UITableViewDataSource
-extension KeywordSearchViewController: UITableViewDataSource{
+// MARK: - UITableViewDataSource
+extension KeywordSearchViewController: UITableViewDataSource {
     // tableViewCellの総数を返すdatasourceメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 店舗リストの総数
@@ -137,22 +123,20 @@ extension KeywordSearchViewController: UITableViewDataSource{
         // 表示するCellオブジェクトを取得
         // キャストする
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath) as! RestaurantTableViewCell
-        
+
         // 店のデータ
         let storeData = restaurantList[indexPath.row]
-        
+
         // tableViewCellに読み込んだ店のデータを表示させる
         cell.setStoreData(storeData)
-        
-        
+
         // 設定したCellオブジェクトを画面に反映
         return cell
     }
 }
 
-
-// MARK: -UITableViewDelegate
-extension KeywordSearchViewController: UITableViewDelegate{
+// MARK: - UITableViewDelegate
+extension KeywordSearchViewController: UITableViewDelegate {
     // Cellが選択された際に呼び出されるdelegateメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 初期化
@@ -174,15 +158,14 @@ extension KeywordSearchViewController: UITableViewDelegate{
     }
 }
 
-
-// MARK: -API
-extension KeywordSearchViewController{
+// MARK: - API
+extension KeywordSearchViewController {
     // API通信を行うメソッド
     // レストランを検索して、TableViewに表示
-    private func searchRestaurant(keyword: String){
+    private func searchRestaurant(keyword: String) {
         // 検索キーワードをsearchingKeywordに代入
         searchingKeyword = keyword
-        
+
         // キーワードをURLエンコードする
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
@@ -193,7 +176,7 @@ extension KeywordSearchViewController{
             return
         }
         print(requestURL)
-        
+
         // レストランのデータを受け取る
         apiClient.receiveRestaurants(requestURL, {[unowned self]  result in
             switch result {
@@ -202,7 +185,7 @@ extension KeywordSearchViewController{
                 // レストランデータのリストを初期化
                 self.restaurantList.removeAll()
                 if let items = storeDataArray.rest {
-                    for item in items{
+                    for item in items {
                         // 各店舗のデータを配列に追加
                         self.restaurantList.append(item)
                     }
@@ -226,7 +209,7 @@ extension KeywordSearchViewController{
                 }
                 // searchBarのテキストを更新
                 self.keywordSearchBar.text = self.searchingKeyword
-                
+
             // エラーが発生した時
             case .failure(let error):
                 print(error)
@@ -237,14 +220,13 @@ extension KeywordSearchViewController{
     }
 }
 
-
-// MARK: -UISearchBarDelegate
-extension KeywordSearchViewController: UISearchBarDelegate{
+// MARK: - UISearchBarDelegate
+extension KeywordSearchViewController: UISearchBarDelegate {
     // 検索ボタンをクリックした時の処理
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // キーボードを閉じる
         view.endEditing(true)
-        
+
         // tableViewのデータを一旦消去
         restaurantList.removeAll()
         storeTableView.reloadData()
@@ -256,7 +238,7 @@ extension KeywordSearchViewController: UISearchBarDelegate{
 
         // 現在のページ位置を1に
         currentPage = 1
-        
+
         if let searchWord = keywordSearchBar.text {
             // 検索をする
             searchRestaurant(keyword: searchWord)
@@ -264,9 +246,8 @@ extension KeywordSearchViewController: UISearchBarDelegate{
     }
 }
 
-
-// MARK: -Action
-extension KeywordSearchViewController{
+// MARK: - Action
+extension KeywordSearchViewController {
     // 前のページボタンが押された時の処理
     private func backPageButtonAction() {
         // tableViewのデータを一旦消去
@@ -285,7 +266,7 @@ extension KeywordSearchViewController{
             searchRestaurant(keyword: searchWord)
         }
     }
-    
+
     // 次のページボタンが押された時の処理
     private func nextPageButtonAction() {
         // tableViewのデータを一旦消去
