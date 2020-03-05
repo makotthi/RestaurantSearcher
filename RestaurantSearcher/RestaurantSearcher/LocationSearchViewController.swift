@@ -263,34 +263,7 @@ extension LocationSearchViewController {
                 switch result {
                 // レストランのデータを受け取れた時
                 case .success(let storeDataArray):
-                    // レストランデータのリストを初期化
-                    self.restaurantList.removeAll()
-                    if let items = storeDataArray.rest {
-                        for item in items {
-                            // 各店舗のデータを配列に追加
-                            self.restaurantList.append(item)
-                        }
-                    } else {
-                        self.pagingView.setPageLabelText(text: "検索結果なし")
-                    }
-
-                    // TableViewを更新
-                    self.storeTableView.reloadData()
-                    // pageLabelを更新
-                    if let total = storeDataArray.total_hit_count {
-                        self.totalPage = Int(ceil(Double(total) / 100.0))
-                        self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
-                        if self.currentPage != 1 {
-                            self.pagingView.setBackPageButtonEnabled(isEnabled: true)
-                        }
-                        if self.currentPage != self.totalPage {
-                            self.pagingView.setNextPageButtonEnabled(isEnabled: true)
-                        }
-                    }
-                    // textFieldのテキストを更新
-                    self.rangeTextField.text = self.searchRange
-                    // 再検索ボタンを有効にする
-                    self.searchButton.isEnabled = true
+                    self.receive(storeDataArray)
 
                 // 通信に失敗した時
                 case .failure(let error):
@@ -301,6 +274,29 @@ extension LocationSearchViewController {
             })
 
         }
+    }
+
+    // データを受け取れた時の処理
+    func receive(_ storeDataArray: StoreDataArray) {
+        // レストランデータのリストを初期化
+        restaurantList = storeDataArray.rest ?? []
+
+        // TableViewを更新
+        storeTableView.reloadData()
+        // pageLabelを更新
+        let pageString = storeDataArray.pageString(currentPage: currentPage)
+        pagingView.setPageLabelText(text: pageString)
+
+        // ページ移動のボタンが有効かどうかを設定
+        let hasPreviousPage = storeDataArray.hasPreviousPage(of: currentPage)
+        let hasNextPage = storeDataArray.hasNextPage(of: currentPage)
+        pagingView.setBackPageButtonEnabled(isEnabled: hasPreviousPage)
+        pagingView.setNextPageButtonEnabled(isEnabled: hasNextPage)
+
+        // textFieldのテキストを更新
+        rangeTextField.text = searchRange
+        // 再検索ボタンを有効にする
+        searchButton.isEnabled = true
     }
 }
 
