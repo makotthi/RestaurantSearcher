@@ -38,7 +38,7 @@ extension UIImageView{
 }
 
 // 画像のフェードインの処理
-extension UIImageView{
+extension UIView{
     func fadeIn(duration: TimeInterval = 0.2, completed: (() -> ())? = nil) {
         alpha = 0
         isHidden = false
