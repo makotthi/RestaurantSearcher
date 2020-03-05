@@ -28,10 +28,9 @@ struct StoreData: Codable {
         if let exit = access?.station_exit {
             accessText = accessText + "\(exit) "
         }
-        if let walk = access?.walk {
-            if walk != "" {
-                accessText = accessText + "\(walk)分"
-            }
+        if let walk = access?.walk, !walk.isEmpty {
+            accessText = accessText + "\(walk)分"
+
         }
         return accessText
     }
