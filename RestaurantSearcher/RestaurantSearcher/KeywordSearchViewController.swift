@@ -187,18 +187,16 @@ extension KeywordSearchViewController {
                 // TableViewを更新
                 self.storeTableView.reloadData()
                 // pageLabelを更新
+                let pageString = storeDataArray.pageString(currentPage: self.currentPage)
+                self.pagingView.setPageLabelText(text: pageString)
                 if let total = storeDataArray.total_hit_count {
                     let totalPage = storeDataArray.totalPage
-                    self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(totalPage) ページ")
                     if self.currentPage != 1 {
                         self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                     }
                     if self.currentPage != totalPage {
                         self.pagingView.setNextPageButtonEnabled(isEnabled: true)
                     }
-                } else {
-                    // 該当するデータがなかった時に表示
-                    self.pagingView.setPageLabelText(text: "検索結果なし")
                 }
 
                 // searchBarのテキストを更新
