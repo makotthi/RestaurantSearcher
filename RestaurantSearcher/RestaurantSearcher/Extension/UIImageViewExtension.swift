@@ -40,12 +40,8 @@ extension UIImageView{
     func fadeIn(duration: TimeInterval = 0.2, completed: (() -> ())? = nil, noImage: NoImage = .ver1) {
         alpha = 0
         isHidden = false
-        var durationVersion = duration
-        if noImage == .ver2 {
-            durationVersion = durationVersion + 0.4
-        }
         
-        UIView.animate(withDuration: durationVersion,
+        UIView.animate(withDuration: duration,
             animations: {
                 self.alpha = 1
             }) { finished in
