@@ -15,6 +15,25 @@ struct StoreData: Codable {
     let tel: String?
     let opentime: String?
     let url: String?
+
+    // 店舗アクセスを設定
+    func routeText() -> String {
+        var accessText = ""
+        if let line = access?.line {
+            accessText = accessText + "\(line) "
+        }
+        if let station = access?.station {
+            accessText = accessText + "\(station) "
+        }
+        if let exit = access?.station_exit {
+            accessText = accessText + "\(exit) "
+        }
+        if let walk = access?.walk, !walk.isEmpty {
+            accessText = accessText + "\(walk)分"
+
+        }
+        return accessText
+    }
 }
 // 店舗画像のデータを格納する
 struct StoreImageData: Codable {
