@@ -4,7 +4,7 @@ import UIKit
 import Nuke
 
 // NoImage画像のバージョンを定義
-enum  ImageVersion {
+enum  NoImage {
     case ver1, ver2
 }
 
