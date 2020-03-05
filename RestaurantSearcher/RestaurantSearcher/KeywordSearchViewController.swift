@@ -20,7 +20,6 @@ class KeywordSearchViewController: UIViewController {
     private var selectID: String?
     // 現在表示しているページの番号と全ページの数
     private var currentPage = 1
-    private var totalPage = 1
     // 現在検索しているキーワード
     private var searchingKeyword: String?
 
@@ -189,12 +188,12 @@ extension KeywordSearchViewController {
                 self.storeTableView.reloadData()
                 // pageLabelを更新
                 if let total = storeDataArray.total_hit_count {
-                    self.totalPage = Int(ceil(Double(total) / 100.0))
-                    self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(self.totalPage) ページ")
+                    let totalPage = Int(ceil(Double(total) / 100.0))
+                    self.pagingView.setPageLabelText(text: "\(self.currentPage) /\(totalPage) ページ")
                     if self.currentPage != 1 {
                         self.pagingView.setBackPageButtonEnabled(isEnabled: true)
                     }
-                    if self.currentPage != self.totalPage {
+                    if self.currentPage != totalPage {
                         self.pagingView.setNextPageButtonEnabled(isEnabled: true)
                     }
                 } else {
