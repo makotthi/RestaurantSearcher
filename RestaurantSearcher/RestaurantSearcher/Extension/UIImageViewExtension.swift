@@ -13,11 +13,13 @@ extension UIImageView{
     // 画像を非同期で読み込む
     func loadImage(url: String?, noImage: NoImage = .ver1) {
         guard let urlString = url, let imageURL = URL(string: urlString) else{
+            var duration: TimeInterval = 0.2
             switch noImage {
             case .ver1:
                 image = #imageLiteral(resourceName: "NoImage2")
             case .ver2:
                 image = #imageLiteral(resourceName: "NoImage1")
+                duration += 0.4
             }
             self.fadeIn(noImage: noImage)
             return
