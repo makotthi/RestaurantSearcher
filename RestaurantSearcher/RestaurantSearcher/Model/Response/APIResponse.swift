@@ -15,6 +15,11 @@ struct StoreData: Codable {
     let tel: String?
     let opentime: String?
     let url: String?
+    
+    // 店舗アクセスを設定
+    func routeText() -> String {
+        
+    }
 }
 // 店舗画像のデータを格納する
 struct StoreImageData: Codable {
