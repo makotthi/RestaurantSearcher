@@ -181,23 +181,7 @@ extension KeywordSearchViewController {
             switch result {
             // データを受け取れた時
             case .success(let storeDataArray):
-                // レストランデータのリストを初期化
-                self.restaurantList = storeDataArray.rest ?? []
-
-                // TableViewを更新
-                self.storeTableView.reloadData()
-                // pageLabelを更新
-                let pageString = storeDataArray.pageString(currentPage: self.currentPage)
-                self.pagingView.setPageLabelText(text: pageString)
-
-                // ページ移動のボタンが有効かどうかを設定
-                let hasPreviousPage = storeDataArray.hasPreviousPage(of: self.currentPage)
-                let hasNextPage = storeDataArray.hasNextPage(of: self.currentPage)
-                self.pagingView.setBackPageButtonEnabled(isEnabled: hasPreviousPage)
-                self.pagingView.setNextPageButtonEnabled(isEnabled: hasNextPage)
-
-                // searchBarのテキストを更新
-                self.keywordSearchBar.text = self.searchingKeyword
+                self.receive(storeDataArray)
 
             // エラーが発生した時
             case .failure(let error):
@@ -206,6 +190,27 @@ extension KeywordSearchViewController {
             }
         })
 
+    }
+
+    // データを受け取れた時の処理
+    func receive(_ storeDataArray: StoreDataArray) {
+        // レストランデータのリストを初期化
+        restaurantList = storeDataArray.rest ?? []
+
+        // TableViewを更新
+        storeTableView.reloadData()
+        // pageLabelを更新
+        let pageString = storeDataArray.pageString(currentPage: currentPage)
+        pagingView.setPageLabelText(text: pageString)
+
+        // ページ移動のボタンが有効かどうかを設定
+        let hasPreviousPage = storeDataArray.hasPreviousPage(of: currentPage)
+        let hasNextPage = storeDataArray.hasNextPage(of: currentPage)
+        pagingView.setBackPageButtonEnabled(isEnabled: hasPreviousPage)
+        pagingView.setNextPageButtonEnabled(isEnabled: hasNextPage)
+
+        // searchBarのテキストを更新
+        keywordSearchBar.text = searchingKeyword
     }
 }
 
