@@ -3,12 +3,25 @@
 import UIKit
 import Nuke
 
+// NoImage画像のバージョンを定義
+enum  NoImage {
+    case ver1, ver2
+}
+
 // UIImageViewを拡張
 extension UIImageView{
     // 画像を非同期で読み込む
-    func loadImage(url: String?) {
+    func loadImage(url: String?, noImage: NoImage = .ver1) {
         guard let urlString = url, let imageURL = URL(string: urlString) else{
-            image = #imageLiteral(resourceName: "NoImage2")
+            var duration: TimeInterval = 0.2
+            switch noImage {
+            case .ver1:
+                image = #imageLiteral(resourceName: "NoImage2")
+            case .ver2:
+                image = #imageLiteral(resourceName: "NoImage1")
+                duration += 0.4
+            }
+            self.fadeIn(duration: duration)
             return
         }
         
@@ -23,4 +36,5 @@ extension UIImageView{
         Nuke.loadImage(with: imageURL, options: options, into: self)
     }
 }
+
 
