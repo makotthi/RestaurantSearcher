@@ -189,15 +189,12 @@ extension KeywordSearchViewController {
                 // pageLabelを更新
                 let pageString = storeDataArray.pageString(currentPage: self.currentPage)
                 self.pagingView.setPageLabelText(text: pageString)
-                if let total = storeDataArray.total_hit_count {
-                    let totalPage = storeDataArray.totalPage
-                    if self.currentPage != 1 {
-                        self.pagingView.setBackPageButtonEnabled(isEnabled: true)
-                    }
-                    if self.currentPage != totalPage {
-                        self.pagingView.setNextPageButtonEnabled(isEnabled: true)
-                    }
-                }
+
+                // ページ移動のボタンが有効かどうかを設定
+                let hasPreviousPage = storeDataArray.hasPreviousPage(of: self.currentPage)
+                let hasNextPage = storeDataArray.hasNextPage(of: self.currentPage)
+                self.pagingView.setBackPageButtonEnabled(isEnabled: hasPreviousPage)
+                self.pagingView.setNextPageButtonEnabled(isEnabled: hasNextPage)
 
                 // searchBarのテキストを更新
                 self.keywordSearchBar.text = self.searchingKeyword
